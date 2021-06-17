@@ -5,13 +5,13 @@
 <meta property="og:site_name" content="Yuchen&#39;s Blog">
 <meta property="og:description" content="一、OSI与TCP-IP 5层协议                           分层模型                           分层思想        将复杂的流程分解为几个功能相对单一的子过程  整个流程更加清晰，复杂问题简单化 更容易发现问题并针对性地解决问题 同层使用相同协议，下层为上层提供服务   使用网络的未必知道数据的传输过程">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="d:/GitHub/myblog/source/assets/posts/day11-OSI-TCP-IP-5/Untitled.png">
+<meta property="og:image" content="https://yuchen-zeta.github.io/2020/08/11/day11-OSI-TCP-IP-5/..%5Cassets%5Cposts%5Cday11-OSI-TCP-IP-5%5CUntitled.png">
 <meta property="article:published_time" content="2020-08-10T16:00:00.000Z">
 <meta property="article:modified_time" content="2020-08-10T16:00:00.000Z">
 <meta property="article:author" content="Yuchen">
 <meta property="article:tag" content="网络安全">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="d:/GitHub/myblog/source/assets/posts/day11-OSI-TCP-IP-5/Untitled.png"><title>day11 - OSI与TCP-IP 5层协议 | 物理层 | Yuchen's Blog</title><link ref="canonical" href="https://yuchen-zeta.github.io/2020/08/11/day11-OSI-TCP-IP-5/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+<meta name="twitter:image" content="https://yuchen-zeta.github.io/2020/08/11/day11-OSI-TCP-IP-5/..%5Cassets%5Cposts%5Cday11-OSI-TCP-IP-5%5CUntitled.png"><title>day11 - OSI与TCP-IP 5层协议 | 物理层 | Yuchen's Blog</title><link ref="canonical" href="https://yuchen-zeta.github.io/2020/08/11/day11-OSI-TCP-IP-5/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
 var CONFIG = {
   root: '/',
   algolia: undefined,
@@ -63,7 +63,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <li>OSI（Open System interconnection）<br>是开放的通信系统互联参考模型</li>
 <li>历史：1947 年，ISO 组织发布了 OSI 参考模型</li>
 </ul>
-<p><img src="D:\GitHub\myblog\source\assets\posts\day11-OSI-TCP-IP-5\Untitled.png" alt="Untitled"></p>
+<p><img src="..%5Cassets%5Cposts%5Cday11-OSI-TCP-IP-5%5CUntitled.png" alt="Untitled"></p>
 <pre><code>                                         —OSI 七层模型—
 </code></pre>
 <ul>
@@ -76,7 +76,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 
         <h3 id="OSI模型-vs-TCP-IP模型"   >
           <a href="#OSI模型-vs-TCP-IP模型" class="heading-link"><i class="fas fa-link"></i></a><a href="#OSI模型-vs-TCP-IP模型" class="headerlink" title="OSI模型 vs TCP/IP模型"></a>OSI模型 vs TCP/IP模型</h3>
-      <p>![Untitled 1](D:\GitHub\myblog\source\assets\posts\day11-OSI-TCP-IP-5\Untitled 1.png)</p>
+      <p>![Untitled 1](..\assets\posts\day11-OSI-TCP-IP-5\Untitled 1.png)</p>
 <hr>
 
         <h2 id="数据传输过程"   >
@@ -104,7 +104,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <li>MAC子层：简称帧头，源 MAC 地址和目标 MAC 地址<br>FCS：帧校验序列，简称帧尾，4个字节，循环校验算法 CRC（类似hash）中的值，加上后整个数据为 <strong>帧</strong></li>
 </ul>
 <p>5.物理层(网线) 将 帧 用数字信号(<strong>比特流</strong>)传输出去，经过交换机、路由器、服务器、防火墙等一系列设备到达 对方电脑网卡</p>
-<p>![Untitled 2](D:\GitHub\myblog\source\assets\posts\day11-OSI-TCP-IP-5\Untitled 2.png)</p>
+<p>![Untitled 2](..\assets\posts\day11-OSI-TCP-IP-5\Untitled 2.png)</p>
 <hr>
 
         <h3 id="数据解封装过程"   >
@@ -112,7 +112,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
       <p>6.数据链路层（网卡）检查 帧 的 MAC子层 和 FCS，检查MAC子层的目标MAC地址 与 该网卡的地址 是否吻合，吻合则解封装，不吻合就扔掉</p>
 <p>7.网络层接着校验IP包/报文，检查目标IP是不是本机，是则解包，不是就扔掉</p>
 <p>8.传输层对数据段解析，由TCP/UDP头里的目标端口号 将信息传给应用层的正确进程</p>
-<p>![Untitled 3](D:\GitHub\myblog\source\assets\posts\day11-OSI-TCP-IP-5\Untitled 3.png)</p>
+<p>![Untitled 3](..\assets\posts\day11-OSI-TCP-IP-5\Untitled 3.png)</p>
 <hr>
 
         <h3 id="要点总结"   >
@@ -132,7 +132,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 </ol>
 </li>
 <li><p>各层相关协议</p>
-<p>  ![Untitled 4](D:\GitHub\myblog\source\assets\posts\day11-OSI-TCP-IP-5\Untitled 4.png)</p>
+<p>  ![Untitled 4](..\assets\posts\day11-OSI-TCP-IP-5\Untitled 4.png)</p>
 </li>
 <li><p>DNS补充：客户机与服务器之间用 UDP，服务器与服务器之间用 TCP</p>
 </li>

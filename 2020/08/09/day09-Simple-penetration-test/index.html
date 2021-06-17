@@ -92,7 +92,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <li><p>自动测试端口号开放：scanport小工具</p>
 </li>
 <li><p><strong>445漏洞之 IPC$</strong></p>
-  <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">net use f: \\10.1.1.2\share 密码 /user:用户 == 把分享文件映射到自己电脑</span><br><span class="line">net use f: /del        删除共享映射</span><br><span class="line">net use * /del         删除所有共享映射</span><br><span class="line">net use f: \\10.1.1.2\c$   密码 /user:用户     进入C盘</span><br><span class="line">net use \\10.1.1.2\IPC$ 密码 /user:用户     == IPC漏洞</span><br></pre></td></tr></table></div></figure></li>
+  <figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">net use f: \\10.1.1.2\share 密码 /user:用户 == 把分享文件映射到自己电脑</span><br><span class="line">net use f: /del        删除共享映射</span><br><span class="line">net use * /del         删除所有共享映射</span><br><span class="line">net use f: \\10.1.1.2\c$   密码 /user:用户     进入C盘</span><br><span class="line">net use \\10.1.1.2\IPC$ 密码 /user:用户     == IPC漏洞</span><br></pre></td></tr></table></div></figure></li>
 <li><p><strong>暴力破解系统密码之445</strong></p>
 <ul>
 <li>软件：ntscan1.0 (只能针对445弹框做暴力破解)     //也可用 hydra</li>
