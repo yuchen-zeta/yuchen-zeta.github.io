@@ -1,0 +1,385 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/sharingan.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/sharingan.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="cifs：公司对内偏多 (微软开发,所有windows系统都有,适合win系)ftp ：对外偏多">
+<meta property="og:type" content="article">
+<meta property="og:title" content="day04 - 文件共享服务器(Cifs)">
+<meta property="og:url" content="https://yuchen-zeta.github.io/2020/08/04/day04-Cifs/index.html">
+<meta property="og:site_name" content="Yuchen&#39;s Blog">
+<meta property="og:description" content="cifs：公司对内偏多 (微软开发,所有windows系统都有,适合win系)ftp ：对外偏多">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-03T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-08-03T16:00:00.000Z">
+<meta property="article:author" content="Yuchen">
+<meta property="article:tag" content="网络安全">
+<meta name="twitter:card" content="summary"><title>day04 - 文件共享服务器(Cifs) | Yuchen's Blog</title><link ref="canonical" href="https://yuchen-zeta.github.io/2020/08/04/day04-Cifs/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-feather-alt"></i></span><span class="header-nav-menu-item__text">文章</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/archives/"><span class="header-nav-submenu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-submenu-item__text">归档</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/"><span class="header-nav-submenu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-submenu-item__text">分类</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/tags/"><span class="header-nav-submenu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-submenu-item__text">标签</span></a></div></div></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Yuchen's Blog</div><div class="header-banner-info__subtitle">拉过勾的事情，就一定要做到啊！</div></div><div class="header-banner-arrow"><div class="header-banner-arrow__icon"><i class="fas fa-angle-down"></i></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">day04 - 文件共享服务器(Cifs)</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-08-04</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-08-04</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">591</span></span></div></header><div class="post-body"><p>cifs：公司对内偏多 (微软开发,所有windows系统都有,适合win系)<br>ftp ：对外偏多</p>
+<span id="more"></span>
+
+
+        <h1 id="一、文件共享服务器概述"   >
+          <a href="#一、文件共享服务器概述" class="heading-link"><i class="fas fa-link"></i></a><a href="#一、文件共享服务器概述" class="headerlink" title="一、文件共享服务器概述"></a>一、文件共享服务器概述</h1>
+      <ul>
+<li>通过网络提供文件共享服务，提供文件下载和上传服务（类似于FTP服务器）</li>
+</ul>
+
+        <h1 id="二、创建共享"   >
+          <a href="#二、创建共享" class="heading-link"><i class="fas fa-link"></i></a><a href="#二、创建共享" class="headerlink" title="二、创建共享"></a>二、创建共享</h1>
+      <ul>
+<li><p>方法:文件夹右键属性－共享－开启共享－设置共享名－设置共享权限</p>
+</li>
+<li><p>注：</p>
+<p>  1）在本地登录时，只受NTFS权限的影响<br>  2）在远程登录时，将受共享及NTFS权限的共同影响，且最终权限取交集。<br>  3）所以建议设置共享权限为everyone完全控制，然后具体的权限在NTFS中设置即可。</p>
+</li>
+</ul>
+
+        <h1 id="三、访问共享"   >
+          <a href="#三、访问共享" class="heading-link"><i class="fas fa-link"></i></a><a href="#三、访问共享" class="headerlink" title="三、访问共享"></a>三、访问共享</h1>
+      <ul>
+<li>在开始运行或我的电脑地址栏中，输入 UNC 地址：<br>\文件共享服务器IP<br>\文件共享服务器IP\共享名  (与共享文件在服务器的路径位置无关)</li>
+<li>第一次访问需要服务器上一个账户,共享前,服务器可以新建一个临时用户<br>再次访问会直接登录,若要换账号登录,自己电脑注销重进就可以</li>
+</ul>
+
+        <h1 id="四、隐藏共享与访问方法"   >
+          <a href="#四、隐藏共享与访问方法" class="heading-link"><i class="fas fa-link"></i></a><a href="#四、隐藏共享与访问方法" class="headerlink" title="四、隐藏共享与访问方法"></a>四、隐藏共享与访问方法</h1>
+      <ul>
+<li>在分享时将分享名后面加上 $ 符号，如 share$</li>
+<li>在访问使需要知道该共享名 share$ 才能访问<br>手动输入  \文件共享服务器IP\共享名  ，如\10.1.1.2\share$</li>
+</ul>
+
+        <h1 id="五、相关共享DOS命令"   >
+          <a href="#五、相关共享DOS命令" class="heading-link"><i class="fas fa-link"></i></a><a href="#五、相关共享DOS命令" class="headerlink" title="五、相关共享DOS命令"></a>五、相关共享DOS命令</h1>
+      <ul>
+<li>net share                                  #列出共享列表</li>
+<li>net share 共享名=共享路径    #创建共享，如 net share c$=c:\</li>
+<li>net share 共享名 /del              #删除共享文件</li>
+</ul>
+
+        <h1 id="六、屏蔽系统隐藏共享自动产生"   >
+          <a href="#六、屏蔽系统隐藏共享自动产生" class="heading-link"><i class="fas fa-link"></i></a><a href="#六、屏蔽系统隐藏共享自动产生" class="headerlink" title="六、屏蔽系统隐藏共享自动产生"></a>六、屏蔽系统隐藏共享自动产生</h1>
+      <ul>
+<li><p><strong>打开注册表</strong></p>
+<p>  打开注册表编辑器：regedit</p>
+</li>
+<li><p><strong>定位共享注册表位置</strong></p>
+<p>  位置：（可百度自查）</p>
+<p>  HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Service\lanmanserver\parameters</p>
+<p>  在该位置新建 REG_DWORD 类型的 AutoShareServer ，并将值设为 0</p>
+</li>
+</ul>
+
+        <h1 id="七、查看本地网络连接状态"   >
+          <a href="#七、查看本地网络连接状态" class="heading-link"><i class="fas fa-link"></i></a><a href="#七、查看本地网络连接状态" class="headerlink" title="七、查看本地网络连接状态"></a>七、查看本地网络连接状态</h1>
+      <pre><code>     netstat -an （查端口，是否开放）
+</code></pre>
+
+        <h1 id="八、关闭445服务"   >
+          <a href="#八、关闭445服务" class="heading-link"><i class="fas fa-link"></i></a><a href="#八、关闭445服务" class="headerlink" title="八、关闭445服务"></a>八、关闭445服务</h1>
+      <p>可以通过关闭445端口来屏蔽病毒传入（如勒索病毒等）</p>
+<ul>
+<li>方法1：打开 services.msc，停止并禁用 server 服务，且把恢复一栏都改为不操作</li>
+<li>方法2：禁止被访问445，配置高级安全防火墙–入站规则（win7及以上系统，win2008及以上系统）</li>
+</ul>
+<p>常见端口：<br>    3389                        <em>#远程桌面</em><br>    23                            <em>#telnet</em><br>    445                          <em>#共享服务</em></p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://yuchen-zeta.github.io/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/08/04/day04-NTFS/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">day04 - NTFS安全权限</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/08/03/day03-Crack-system-password/"><span class="paginator-prev__text">day03 - 破解系统密码</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">
+          一、文件共享服务器概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%88%9B%E5%BB%BA%E5%85%B1%E4%BA%AB"><span class="toc-number">2.</span> <span class="toc-text">
+          二、创建共享</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E8%AE%BF%E9%97%AE%E5%85%B1%E4%BA%AB"><span class="toc-number">3.</span> <span class="toc-text">
+          三、访问共享</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E9%9A%90%E8%97%8F%E5%85%B1%E4%BA%AB%E4%B8%8E%E8%AE%BF%E9%97%AE%E6%96%B9%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text">
+          四、隐藏共享与访问方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E7%9B%B8%E5%85%B3%E5%85%B1%E4%BA%ABDOS%E5%91%BD%E4%BB%A4"><span class="toc-number">5.</span> <span class="toc-text">
+          五、相关共享DOS命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%B1%8F%E8%94%BD%E7%B3%BB%E7%BB%9F%E9%9A%90%E8%97%8F%E5%85%B1%E4%BA%AB%E8%87%AA%E5%8A%A8%E4%BA%A7%E7%94%9F"><span class="toc-number">6.</span> <span class="toc-text">
+          六、屏蔽系统隐藏共享自动产生</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E6%9F%A5%E7%9C%8B%E6%9C%AC%E5%9C%B0%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%8A%B6%E6%80%81"><span class="toc-number">7.</span> <span class="toc-text">
+          七、查看本地网络连接状态</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E5%85%B3%E9%97%AD445%E6%9C%8D%E5%8A%A1"><span class="toc-number">8.</span> <span class="toc-text">
+          八、关闭445服务</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/blog-logo.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">Laugh Tale</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/yuchen-zeta/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="2058149863" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Yuchen</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-space-shuttle"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

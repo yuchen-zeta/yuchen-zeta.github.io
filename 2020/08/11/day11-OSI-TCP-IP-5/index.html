@@ -1,0 +1,469 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/sharingan.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/sharingan.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="一、OSI与TCP-IP 5层协议                           分层模型                           分层思想        将复杂的流程分解为几个功能相对单一的子过程  整个流程更加清晰，复杂问题简单化 更容易发现问题并针对性地解决问题 同层使用相同协议，下层为上层提供服务   使用网络的未必知道数据的传输过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="day11 - OSI与TCP-IP 5层协议 | 物理层">
+<meta property="og:url" content="https://yuchen-zeta.github.io/2020/08/11/day11-OSI-TCP-IP-5/index.html">
+<meta property="og:site_name" content="Yuchen&#39;s Blog">
+<meta property="og:description" content="一、OSI与TCP-IP 5层协议                           分层模型                           分层思想        将复杂的流程分解为几个功能相对单一的子过程  整个流程更加清晰，复杂问题简单化 更容易发现问题并针对性地解决问题 同层使用相同协议，下层为上层提供服务   使用网络的未必知道数据的传输过程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/06/17/Q3RKDNZi1BnqgIV.png">
+<meta property="og:image" content="https://i.loli.net/2021/06/17/jbfeGcuRILpXAYZ.png">
+<meta property="og:image" content="https://i.loli.net/2021/06/17/NyjrilFY8V6uqas.png">
+<meta property="og:image" content="https://i.loli.net/2021/06/17/lc7P9eItR4Wadq3.png">
+<meta property="og:image" content="https://i.loli.net/2021/06/17/1bCEfPxYzSlgoXw.png">
+<meta property="article:published_time" content="2020-08-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-08-10T16:00:00.000Z">
+<meta property="article:author" content="Yuchen">
+<meta property="article:tag" content="网络安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/06/17/Q3RKDNZi1BnqgIV.png"><title>day11 - OSI与TCP-IP 5层协议 | 物理层 | Yuchen's Blog</title><link ref="canonical" href="https://yuchen-zeta.github.io/2020/08/11/day11-OSI-TCP-IP-5/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-feather-alt"></i></span><span class="header-nav-menu-item__text">文章</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/archives/"><span class="header-nav-submenu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-submenu-item__text">归档</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/"><span class="header-nav-submenu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-submenu-item__text">分类</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/tags/"><span class="header-nav-submenu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-submenu-item__text">标签</span></a></div></div></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Yuchen's Blog</div><div class="header-banner-info__subtitle">拉过勾的事情，就一定要做到啊！</div></div><div class="header-banner-arrow"><div class="header-banner-arrow__icon"><i class="fas fa-angle-down"></i></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">day11 - OSI与TCP-IP 5层协议 | 物理层</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-08-11</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-08-11</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.3k</span></span></div></header><div class="post-body">
+        <h1 id="一、OSI与TCP-IP-5层协议"   >
+          <a href="#一、OSI与TCP-IP-5层协议" class="heading-link"><i class="fas fa-link"></i></a><a href="#一、OSI与TCP-IP-5层协议" class="headerlink" title="一、OSI与TCP-IP 5层协议"></a>一、OSI与TCP-IP 5层协议</h1>
+      
+        <h2 id="分层模型"   >
+          <a href="#分层模型" class="heading-link"><i class="fas fa-link"></i></a><a href="#分层模型" class="headerlink" title="分层模型"></a>分层模型</h2>
+      
+        <h3 id="分层思想"   >
+          <a href="#分层思想" class="heading-link"><i class="fas fa-link"></i></a><a href="#分层思想" class="headerlink" title="分层思想"></a>分层思想</h3>
+      <ul>
+<li><p>将复杂的流程分解为几个功能相对单一的子过程</p>
+<ul>
+<li>整个流程更加清晰，<strong>复杂问题简单化</strong></li>
+<li>更容易发现问题并针对性地解决问题</li>
+<li>同层使用相同协议，下层为上层提供服务</li>
+</ul>
+</li>
+<li><p>使用网络的未必知道数据的传输过程</p>
+  <span id="more"></span></li>
+</ul>
+<hr>
+
+        <h3 id="OSI七层模型"   >
+          <a href="#OSI七层模型" class="heading-link"><i class="fas fa-link"></i></a><a href="#OSI七层模型" class="headerlink" title="OSI七层模型"></a>OSI七层模型</h3>
+      <ul>
+<li>OSI（Open System interconnection）<br>是开放的通信系统互联参考模型</li>
+<li>历史：1947 年，ISO 组织发布了 OSI 参考模型</li>
+</ul>
+<p><img src="https://i.loli.net/2021/06/17/Q3RKDNZi1BnqgIV.png" alt="Untitled"></p>
+<pre><code>                                         —OSI 七层模型—
+</code></pre>
+<ul>
+<li>TCP/IP 5层协议簇/协议栈：会话层，表示层，应用层三层合并成为应用层，最后为五层协议</li>
+<li>这两个同时诞生，OSI 先有模型，TCP 先有协议</li>
+<li>四层模型：把 数据链路层 和 物理层 合并为网络接口层</li>
+<li>特点：上层对下层兼容，处于上层的设备一定可以识别所有下层的信息</li>
+</ul>
+<hr>
+
+        <h3 id="OSI模型-vs-TCP-IP模型"   >
+          <a href="#OSI模型-vs-TCP-IP模型" class="heading-link"><i class="fas fa-link"></i></a><a href="#OSI模型-vs-TCP-IP模型" class="headerlink" title="OSI模型 vs TCP/IP模型"></a>OSI模型 vs TCP/IP模型</h3>
+      <p><img src="https://i.loli.net/2021/06/17/jbfeGcuRILpXAYZ.png" alt="Untitled 1"></p>
+<hr>
+
+        <h2 id="数据传输过程"   >
+          <a href="#数据传输过程" class="heading-link"><i class="fas fa-link"></i></a><a href="#数据传输过程" class="headerlink" title="数据传输过程"></a>数据传输过程</h2>
+      
+        <h3 id="数据封装过程"   >
+          <a href="#数据封装过程" class="heading-link"><i class="fas fa-link"></i></a><a href="#数据封装过程" class="headerlink" title="数据封装过程"></a>数据封装过程</h3>
+      <p>假设要发送“Hello”这个数据，首先是封包</p>
+<p>1.通过应用层，在软件中生成，进入传输层</p>
+<p>2.传输层对数据进行 封装 ，进入网络层</p>
+<ul>
+<li>传输层 完成进程与进程之间的通信</li>
+<li>封装：给数据加上 TCP/UDP 头<br>在加头之前判断数据是从应用层中的哪个软件生成的<br>然后在数据中加上原端口号和<em>目标端口号</em>(服务器端口号)</li>
+<li>封装完后整个数据为 <strong>数据段</strong></li>
+<li>端口号是应用层的</li>
+</ul>
+<p>****UDP：速度快，但安全性不高，不可靠传输(双方不建立连接)，像写信<br>TCP ：速度不快，但安全性高，可靠传输(双方要建立连接)，像打电话</p>
+<p>3.网络层对数据再加上 IP包头 ，进入数据链路层</p>
+<ul>
+<li>网络层 完成点到点的通信   (行话，”点”指电脑)</li>
+<li>加上 IP 包头(包含源IP和目标IP)，加上后整个数据为 <strong>IP包/报文</strong></li>
+</ul>
+<p>4.数据链路层（网卡）给数据加上 MAC子层 和 FCS ，进入物理层（网线）</p>
+<ul>
+<li>交换机工作在 数据链路层，意味着交换机没有上层的功能</li>
+<li>MAC子层：简称帧头，源 MAC 地址和目标 MAC 地址<br>FCS：帧校验序列，简称帧尾，4个字节，循环校验算法 CRC（类似hash）中的值，加上后整个数据为 <strong>帧</strong></li>
+</ul>
+<p>5.物理层(网线) 将 帧 用数字信号(<strong>比特流</strong>)传输出去，经过交换机、路由器、服务器、防火墙等一系列设备到达 对方电脑网卡</p>
+<p><img src="https://i.loli.net/2021/06/17/NyjrilFY8V6uqas.png" alt="Untitled 2"></p>
+<hr>
+
+        <h3 id="数据解封装过程"   >
+          <a href="#数据解封装过程" class="heading-link"><i class="fas fa-link"></i></a><a href="#数据解封装过程" class="headerlink" title="数据解封装过程"></a>数据解封装过程</h3>
+      <p>6.数据链路层（网卡）检查 帧 的 MAC子层 和 FCS，检查MAC子层的目标MAC地址 与 该网卡的地址 是否吻合，吻合则解封装，不吻合就扔掉</p>
+<p>7.网络层接着校验IP包/报文，检查目标IP是不是本机，是则解包，不是就扔掉</p>
+<p>8.传输层对数据段解析，由TCP/UDP头里的目标端口号 将信息传给应用层的正确进程</p>
+<p><img src="https://i.loli.net/2021/06/17/lc7P9eItR4Wadq3.png" alt="Untitled 3"></p>
+<hr>
+
+        <h3 id="要点总结"   >
+          <a href="#要点总结" class="heading-link"><i class="fas fa-link"></i></a><a href="#要点总结" class="headerlink" title="要点总结"></a>要点总结</h3>
+      <ul>
+<li><p>各层的 数据名称 及 对应设备：</p>
+<ol>
+<li>数据/PDU                        应用层           PC/防火墙    五层</li>
+<li>数据段/段     Fragment   传输层            防火墙         四层</li>
+<li>报文/包/IP包 packet        网络层            路由器         三层</li>
+<li>帧                  Franme       数据链路层    交换机 网卡 二层</li>
+<li>比特               bit              物理层            网线             一层<ul>
+<li>8 bit = 1 Byte字节</li>
+<li>所谓的百兆宽带 (* ￣︿￣)，单位是b，100Mb/s=12.5MB/s ，而且一般还达不到……</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>各层相关协议</p>
+<p>  <img src="https://i.loli.net/2021/06/17/1bCEfPxYzSlgoXw.png" alt="Untitled 4"></p>
+</li>
+<li><p>DNS补充：客户机与服务器之间用 UDP，服务器与服务器之间用 TCP</p>
+</li>
+</ul>
+
+        <h1 id="二、物理层"   >
+          <a href="#二、物理层" class="heading-link"><i class="fas fa-link"></i></a><a href="#二、物理层" class="headerlink" title="二、物理层"></a>二、物理层</h1>
+      <ol>
+<li><p>传输媒介：网线 / 光纤 / 空气</p>
+</li>
+<li><p>信号：模拟信号（用放大器处理，不可复原）</p>
+<pre><code>    数字信号（用中继器处理，抗干扰能力强，可复原，可传输距离短）
+</code></pre>
+<p> 光信号：</p>
+<p> 光线类型:  </p>
+<p> 1)单模光纤 一般线是黄色</p>
+<pre><code>2)多模光纤 一般线是橙色/蓝色
+</code></pre>
+</li>
+<li><p>网线 / 双绞线：(双绞，抗干扰，电磁场抵消)</p>
+<ul>
+<li>5类双绞线</li>
+<li>超5类双绞线</li>
+<li>6类 7类 chegn</li>
+<li>跳线：比较短的网线，1-3米长</li>
+</ul>
+</li>
+<li><p>制作标准：（面向水晶头铜色拨片，颜色线顺序，加粗不变）</p>
+<p> T568A：白绿、绿、白橙、<strong>蓝、白、</strong>橙、<strong>白棕、棕</strong></p>
+<p> T568B：白橙、橙、白绿、<strong>蓝、白、</strong>绿、<strong>白棕、棕</strong></p>
+</li>
+<li><p>网线的用途分类： 具有三层功能以上的设备为同种设备</p>
+<ul>
+<li>交叉线：一端为 A(发送)，一端为 B(接收)。同种设备间使用！<br>如路由器 ↔ 路由器，路由器 ↔ 电脑</li>
+<li>直通线：两端都是 A 或 B，目前行业所见都是B线。异种设备间使用！如交换机 ↔ 电脑。</li>
+<li>全反线：一端为 A，另一端为反 A，也称 console 线，用于配置企业路由器/交换机</li>
+</ul>
+</li>
+<li><p>关于交换机的接口：</p>
+<p> Ethernet                    10Mb/s           简写:   E<br> FastEthernet              100Mb/s                    F<br> GigabitEthernet      1000Mb/s                  G<br> TenGigabitEthernet      10000Mb/s                TG</p>
+<p> 例如 Ethernet0/3 中，0 是模块编号，3 是该模块的接口编号</p>
+</li>
+<li><p>家里一般用的”路由器“其实是交换机和路由器的杂交产品，真正的名字是”三层交换机“</p>
+</li>
+</ol>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://yuchen-zeta.github.io/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a></span></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2020/08/10/day10-Scanning&amp;blasting/"><span class="paginator-prev__text">day10 - 扫描与爆破</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81OSI%E4%B8%8ETCP-IP-5%E5%B1%82%E5%8D%8F%E8%AE%AE"><span class="toc-number">1.</span> <span class="toc-text">
+          一、OSI与TCP-IP 5层协议</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%B1%82%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text">
+          分层模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%B1%82%E6%80%9D%E6%83%B3"><span class="toc-number">1.1.1.</span> <span class="toc-text">
+          分层思想</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OSI%E4%B8%83%E5%B1%82%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.2.</span> <span class="toc-text">
+          OSI七层模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OSI%E6%A8%A1%E5%9E%8B-vs-TCP-IP%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.3.</span> <span class="toc-text">
+          OSI模型 vs TCP&#x2F;IP模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E8%BF%87%E7%A8%8B"><span class="toc-number">1.2.</span> <span class="toc-text">
+          数据传输过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%B0%81%E8%A3%85%E8%BF%87%E7%A8%8B"><span class="toc-number">1.2.1.</span> <span class="toc-text">
+          数据封装过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%A7%A3%E5%B0%81%E8%A3%85%E8%BF%87%E7%A8%8B"><span class="toc-number">1.2.2.</span> <span class="toc-text">
+          数据解封装过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93"><span class="toc-number">1.2.3.</span> <span class="toc-text">
+          要点总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%89%A9%E7%90%86%E5%B1%82"><span class="toc-number">2.</span> <span class="toc-text">
+          二、物理层</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/blog-logo.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">Laugh Tale</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/yuchen-zeta/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="2058149863" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Yuchen</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-space-shuttle"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

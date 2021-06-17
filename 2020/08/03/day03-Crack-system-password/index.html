@@ -1,0 +1,423 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/sharingan.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/sharingan.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="一、利用5次shift漏洞破解win7密码        漏洞  漏洞1：未登陆系统前连按5次shift弹出程序（粘滞键）程序位置：c:\windows\system32\sethc.exe  漏洞2：部分win7及win10系统在未进入系统时，可以通过系统修复漏洞篡改系统文件名！  注：如果win7或win10已修补此漏洞2，则无法利用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="day03 - 破解系统密码">
+<meta property="og:url" content="https://yuchen-zeta.github.io/2020/08/03/day03-Crack-system-password/index.html">
+<meta property="og:site_name" content="Yuchen&#39;s Blog">
+<meta property="og:description" content="一、利用5次shift漏洞破解win7密码        漏洞  漏洞1：未登陆系统前连按5次shift弹出程序（粘滞键）程序位置：c:\windows\system32\sethc.exe  漏洞2：部分win7及win10系统在未进入系统时，可以通过系统修复漏洞篡改系统文件名！  注：如果win7或win10已修补此漏洞2，则无法利用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/06/17/SA1RIZYdDMqblmw.png">
+<meta property="og:image" content="https://i.loli.net/2021/06/17/PoxlMtdjwFLST6z.png">
+<meta property="og:image" content="https://i.loli.net/2021/06/17/BCSi8mVrwadELAn.png">
+<meta property="og:image" content="https://i.loli.net/2021/06/17/VaToiGfZ1n3P2rx.png">
+<meta property="og:image" content="https://i.loli.net/2021/06/17/i7r4bI6nZDgALdV.png">
+<meta property="og:image" content="https://i.loli.net/2021/06/17/rfEiBsoxZ6J8GwV.png">
+<meta property="og:image" content="https://i.loli.net/2021/06/17/6qKB95lhyo34MzY.png">
+<meta property="og:image" content="https://i.loli.net/2021/06/17/Dus7KWSrphI3gkv.png">
+<meta property="og:image" content="https://i.loli.net/2021/06/17/ac6WIleKZABGSkq.png">
+<meta property="og:image" content="https://i.loli.net/2021/06/17/aNxjVw3c4hLItp8.png">
+<meta property="og:image" content="https://i.loli.net/2021/06/17/GiNw5Y1enhsUPBK.png">
+<meta property="article:published_time" content="2020-08-02T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-08-02T16:00:00.000Z">
+<meta property="article:author" content="Yuchen">
+<meta property="article:tag" content="网络安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/06/17/SA1RIZYdDMqblmw.png"><title>day03 - 破解系统密码 | Yuchen's Blog</title><link ref="canonical" href="https://yuchen-zeta.github.io/2020/08/03/day03-Crack-system-password/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-feather-alt"></i></span><span class="header-nav-menu-item__text">文章</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/archives/"><span class="header-nav-submenu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-submenu-item__text">归档</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/"><span class="header-nav-submenu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-submenu-item__text">分类</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/tags/"><span class="header-nav-submenu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-submenu-item__text">标签</span></a></div></div></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Yuchen's Blog</div><div class="header-banner-info__subtitle">拉过勾的事情，就一定要做到啊！</div></div><div class="header-banner-arrow"><div class="header-banner-arrow__icon"><i class="fas fa-angle-down"></i></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">day03 - 破解系统密码</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-08-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-08-03</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1k</span></span></div></header><div class="post-body">
+        <h1 id="一、利用5次shift漏洞破解win7密码"   >
+          <a href="#一、利用5次shift漏洞破解win7密码" class="heading-link"><i class="fas fa-link"></i></a><a href="#一、利用5次shift漏洞破解win7密码" class="headerlink" title="一、利用5次shift漏洞破解win7密码"></a>一、利用5次shift漏洞破解win7密码</h1>
+      <ol>
+<li><p>漏洞</p>
+<ul>
+<li><p>漏洞1：未登陆系统前连按5次shift弹出程序（粘滞键）<br>程序位置：c:\windows\system32\sethc.exe</p>
+</li>
+<li><p>漏洞2：部分win7及win10系统在未进入系统时，可以通过系统修复漏洞篡改系统文件名！</p>
+</li>
+<li><p>注：如果win7或win10已修补此漏洞2，则无法利用</p>
+</li>
+</ul>
+ <span id="more"></span>
+<hr>
+</li>
+<li><p>破解过程相关知识</p>
+<ul>
+<li>cmd工具路径                   c:\windows\system32\cmd</li>
+<li>用户/账户密码存储位置   c:\windows\system32\config\SAM</li>
+<li>修改账户密码                   net  user 用户名 新密码</li>
+</ul>
+<hr>
+</li>
+<li><p>漏洞利用过程</p>
+</li>
+</ol>
+<ul>
+<li><p>案例：破解win7系统密码</p>
+<ul>
+<li>实验步骤：</li>
+</ul>
+<ol>
+<li><p>开启win7虚拟机，开机，随便设置一个密码<br>可用 net user Barry sad#adhk&amp;*hkadb13asd45 设置</p>
+</li>
+<li><p>关机后开机，进入登录页面，鼠标进入虚拟机，连按 shift 5次，弹出对话框，说明存在 漏洞1：5次shift漏洞 </p>
+</li>
+</ol>
+<p>  该程序的位置：c:\windows\system32\sethc.exe（突破口：将其替换）</p>
+<p><img src="https://i.loli.net/2021/06/17/SA1RIZYdDMqblmw.png" alt="Untitled"></p>
+<ol start="3">
+<li><p>若存在漏洞，则关机再开机，在出现windows启动界面(四个小点汇聚成旗)时，强制关机(把虚拟机电源拔了，虚拟机右键选择电源—关闭客户机)</p>
+</li>
+<li><p>再开机，如果没有出现以下界面，再强制关机一次<br> （win7 一般两次，win10 一般三次）<br> 选择启动修复（漏洞在此哦）</p>
+</li>
+</ol>
+<p><img src="https://i.loli.net/2021/06/17/PoxlMtdjwFLST6z.png" alt="Untitled 1"><br>进入 “ 启动修复 ” 界面</p>
+<p><img src="https://i.loli.net/2021/06/17/BCSi8mVrwadELAn.png" alt="Untitled 2"></p>
+</li>
+</ul>
+<ol start="5">
+<li><p>出现系统还原提示，点击取消，然后它继续尝试修复，等待几分钟</p>
+<p> <img src="https://i.loli.net/2021/06/17/VaToiGfZ1n3P2rx.png" alt="Untitled 3"></p>
+<p> 出现问题原因，如以下界面，点击查看详细信息</p>
+<p> <img src="https://i.loli.net/2021/06/17/i7r4bI6nZDgALdV.png" alt="Untitled 4"></p>
+</li>
+<li><p>在详细信息中，点击最后一个 txt 文档 的链接，进入记事本</p>
+<p> <img src="https://i.loli.net/2021/06/17/rfEiBsoxZ6J8GwV.png" alt="Untitled 5"></p>
+<p> <img src="https://i.loli.net/2021/06/17/6qKB95lhyo34MzY.png" alt="Untitled 6"></p>
+<p> 选择文件 — 另存为 (或打开)，进入以下界面，此时就是在最高权限下查看所有文件</p>
+<p> <img src="https://i.loli.net/2021/06/17/Dus7KWSrphI3gkv.png" alt="Untitled 7"></p>
+</li>
+</ol>
+<p>  <img src="https://i.loli.net/2021/06/17/ac6WIleKZABGSkq.png" alt="Untitled 8"></p>
+<ol>
+<li><p>接下来去寻找 5次shift启动的粘滞键程序</p>
+<ul>
+<li>位置： c:\windows\system32\sethc.exe<br>将其替换为cmd程序</li>
+<li>位置： c:\windows\system32\cmd<br>注：此时我们要找的C盘在system权限下其实是D盘</li>
+<li>进入D盘，进入windows中的system32中，选择显示所有文件<br>找到 sethc  ，将其重命名（任意），如sethc-bak<br>找到 cmd   ，复制一份cmd，改名为sethc<br>此时基本已经成功，再次开机使调用sechc时就是调用cmd了</li>
+</ul>
+<p> <img src="https://i.loli.net/2021/06/17/aNxjVw3c4hLItp8.png" alt="Untitled 9"></p>
+</li>
+</ol>
+<p>  <img src="https://i.loli.net/2021/06/17/GiNw5Y1enhsUPBK.png" alt="Untitled 10"></p>
+<ol start="8">
+<li>全部关闭，重新启动，回到登录界面 连按5次shift ，cmd窗口就被调用出来了<br> 接下来可以为所欲为了，要想进入有以下两种方法<ul>
+<li>若想修改该用户的密码：<br>net user 用户名  新密码<br>用户名在登录界面可以看到，若不想设密码，可以输入“”，置空</li>
+<li>若不想修改该用户的密码：<br>net user test 123 /add                               #新建用户，设置密码<br>net localgroup administrators test /add   #升权为管理员<br>做完该做的事之后……<br>net user test /del                                      #删除用户，擦除数据<br>注：还需删除日志，今后会提到，此处暂未提及</li>
+</ul>
+</li>
+</ol>
+
+        <h1 id="二、利用PE破解系统密码"   >
+          <a href="#二、利用PE破解系统密码" class="heading-link"><i class="fas fa-link"></i></a><a href="#二、利用PE破解系统密码" class="headerlink" title="二、利用PE破解系统密码"></a>二、利用PE破解系统密码</h1>
+      <ul>
+<li>Windows PE：Windows Preinstallation Environment，Windows预安装环境，是带有有限服务的最小Win32子系统，基于以保护模式运行的Windows XP Professional及以上内核。</li>
+<li>功能：包括运行Windows安装程序及脚本、连接网络共享、自动化基本过程以及执行硬件验证所需的最小功能</li>
+<li>使用极其简单：<ul>
+<li>下一个PE工具，插入U盘，将系统装入，开启目标系统电脑，在刚开机使按相应方法进入BIOS界面(Basic Input Output System,基本输入输出系统)<ul>
+<li>真实机一般狂摁某个按键，如Esc，F1等</li>
+<li>虚拟机，进入下拉菜单，点击 打开电源时进入固件</li>
+</ul>
+</li>
+<li>到BOOT页面下选择U盘或是光驱启动，F10保存，退出BIOS，进入PE系统，点击 破解Windows登录密码</li>
+<li>软件自动定位到C:\WINDOWS\SYSTEM32\CONFIG\SAM<br>打开后选择用户，更改口令，输入新密码，若不输入，则不设密码<br>保存更改，破解成功</li>
+</ul>
+</li>
+</ul>
+<p>原理：SAM保存着所有用户的账号和密码hash值，我们要做的就是进入SAM文件，用 我们要设置的新密码的hash值 替换 针对账号的密码hash值</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://yuchen-zeta.github.io/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/08/04/day04-Cifs/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">day04 - 文件共享服务器(Cifs)</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/08/03/day03-Remote%20administration/"><span class="paginator-prev__text">day03 - 用户与组管理 | 远程管理</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%88%A9%E7%94%A85%E6%AC%A1shift%E6%BC%8F%E6%B4%9E%E7%A0%B4%E8%A7%A3win7%E5%AF%86%E7%A0%81"><span class="toc-number">1.</span> <span class="toc-text">
+          一、利用5次shift漏洞破解win7密码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%88%A9%E7%94%A8PE%E7%A0%B4%E8%A7%A3%E7%B3%BB%E7%BB%9F%E5%AF%86%E7%A0%81"><span class="toc-number">2.</span> <span class="toc-text">
+          二、利用PE破解系统密码</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/blog-logo.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">Laugh Tale</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/yuchen-zeta/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="2058149863" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Yuchen</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-space-shuttle"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

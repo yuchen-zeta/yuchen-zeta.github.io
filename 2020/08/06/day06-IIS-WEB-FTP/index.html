@@ -1,0 +1,460 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/sharingan.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/sharingan.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="一、WEB服务器                           1、WEB服务器概述        WEB服务器也称为网页服务器，HTTP服务器，WWW万维网服务器等  使用协议是HTTP或HTTPS协议    (浏览器专业名称其实是HTTP客户端)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="day06 - IIS - WEB服务器 | FTP服务器">
+<meta property="og:url" content="https://yuchen-zeta.github.io/2020/08/06/day06-IIS-WEB-FTP/index.html">
+<meta property="og:site_name" content="Yuchen&#39;s Blog">
+<meta property="og:description" content="一、WEB服务器                           1、WEB服务器概述        WEB服务器也称为网页服务器，HTTP服务器，WWW万维网服务器等  使用协议是HTTP或HTTPS协议    (浏览器专业名称其实是HTTP客户端)">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/06/17/b6CPlk4cYx9TgSW.png">
+<meta property="article:published_time" content="2020-08-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-08-05T16:00:00.000Z">
+<meta property="article:author" content="Yuchen">
+<meta property="article:tag" content="网络安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/06/17/b6CPlk4cYx9TgSW.png"><title>day06 - IIS - WEB服务器 | FTP服务器 | Yuchen's Blog</title><link ref="canonical" href="https://yuchen-zeta.github.io/2020/08/06/day06-IIS-WEB-FTP/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-feather-alt"></i></span><span class="header-nav-menu-item__text">文章</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/archives/"><span class="header-nav-submenu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-submenu-item__text">归档</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/"><span class="header-nav-submenu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-submenu-item__text">分类</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/tags/"><span class="header-nav-submenu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-submenu-item__text">标签</span></a></div></div></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Yuchen's Blog</div><div class="header-banner-info__subtitle">拉过勾的事情，就一定要做到啊！</div></div><div class="header-banner-arrow"><div class="header-banner-arrow__icon"><i class="fas fa-angle-down"></i></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">day06 - IIS - WEB服务器 | FTP服务器</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-08-06</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-08-06</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.1k</span></span></div></header><div class="post-body">
+        <h1 id="一、WEB服务器"   >
+          <a href="#一、WEB服务器" class="heading-link"><i class="fas fa-link"></i></a><a href="#一、WEB服务器" class="headerlink" title="一、WEB服务器"></a>一、WEB服务器</h1>
+      
+        <h2 id="1、WEB服务器概述"   >
+          <a href="#1、WEB服务器概述" class="heading-link"><i class="fas fa-link"></i></a><a href="#1、WEB服务器概述" class="headerlink" title="1、WEB服务器概述"></a>1、WEB服务器概述</h2>
+      <ul>
+<li><p>WEB服务器也称为网页服务器，HTTP服务器，WWW万维网服务器等</p>
+</li>
+<li><p>使用协议是HTTP或HTTPS协议    (浏览器专业名称其实是HTTP客户端)</p>
+<span id="more"></span></li>
+</ul>
+
+        <h2 id="2、WEB服务器端口号"   >
+          <a href="#2、WEB服务器端口号" class="heading-link"><i class="fas fa-link"></i></a><a href="#2、WEB服务器端口号" class="headerlink" title="2、WEB服务器端口号"></a>2、WEB服务器端口号</h2>
+      <ul>
+<li>HTTP  : TCP 80</li>
+<li>HTTPS: TCP 443</li>
+</ul>
+
+        <h2 id="3、WEB服务器发布软件："   >
+          <a href="#3、WEB服务器发布软件：" class="heading-link"><i class="fas fa-link"></i></a><a href="#3、WEB服务器发布软件：" class="headerlink" title="3、WEB服务器发布软件："></a>3、WEB服务器发布软件：</h2>
+      <ul>
+<li>微软：IIS（Internet Information Services互联网信息服务)<br>(可以发布web网站和FTP站点）</li>
+<li>linux：Apache /LAMP /Tomcat /nginx 等等</li>
+<li>第三方软件：phpstudy、XAMPP      (基于LAMP，仅限学习测试使用)</li>
+</ul>
+
+        <h2 id="4、部署WEB服务器"   >
+          <a href="#4、部署WEB服务器" class="heading-link"><i class="fas fa-link"></i></a><a href="#4、部署WEB服务器" class="headerlink" title="4、部署WEB服务器"></a>4、部署WEB服务器</h2>
+      <ol>
+<li>配置静态 IP 地址</li>
+<li>安装 IIS-WEB 插件（此时80端口已经打开）</li>
+<li>停用默认站点       （当一个站点都没有时，端口自动关闭）</li>
+<li>新建网站–设置IP地址和端口–指定站点路径–设置权限</li>
+<li>设置默认文档（即设置首页）</li>
+</ol>
+
+        <h2 id="5、一台服务器同时发布多个WEB站点"   >
+          <a href="#5、一台服务器同时发布多个WEB站点" class="heading-link"><i class="fas fa-link"></i></a><a href="#5、一台服务器同时发布多个WEB站点" class="headerlink" title="5、一台服务器同时发布多个WEB站点"></a>5、一台服务器同时发布多个WEB站点</h2>
+      <ul>
+<li><p>不同的 IP，相同的端口</p>
+</li>
+<li><p>相同的 IP，不同的端口（不建议使用1000以下的端口）</p>
+</li>
+<li><p>相同的 IP，相同的端口，不同的域名（主机头）</p>
+<ol>
+<li>在IIS中新建网站，在IP地址和端口设置时，配置本机IP ，设置主机头为相应域名<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://www.onepiece.com/" >www.onepiece.com</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li>导入网页文件所在文件夹 D:\onepiece，允许匿名访问，网站新建完成</li>
+<li>右键属性，在文档选项中，默认文档添加index.html，移至最前<br>此时可以通过 IP 访问网站<br>4.配好DNS服务器，新建区域 onepiece.com，新建主机名称为www<br>此时就可以通过 <span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://www.onepiece.com/" >www.onepiece.com</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 来访问该网站了</li>
+</ol>
+</li>
+</ul>
+
+        <h2 id="6、网站类型"   >
+          <a href="#6、网站类型" class="heading-link"><i class="fas fa-link"></i></a><a href="#6、网站类型" class="headerlink" title="6、网站类型"></a>6、网站类型</h2>
+      <ul>
+<li><p>静态网站：一般扩展名为 .html 或 htm，无后台数据库（可不是不会动！）</p>
+</li>
+<li><p>动态网站：一般扩展名为 .asp 或 .php，有后台数据库，asp 或 php 可以连接前台页面与后台数据库</p>
+<p>  *默认 IIS 禁用动态网站，需要在WEB服务扩展里打开 Active Server Pages 服务</p>
+</li>
+<li><p>本质区别：动态网站能与用户进行交互（登陆），而静态网站不能</p>
+</li>
+</ul>
+
+        <h1 id="二、FTP服务器"   >
+          <a href="#二、FTP服务器" class="heading-link"><i class="fas fa-link"></i></a><a href="#二、FTP服务器" class="headerlink" title="二、FTP服务器"></a>二、FTP服务器</h1>
+      
+        <h2 id="1、FTP服务器概述"   >
+          <a href="#1、FTP服务器概述" class="heading-link"><i class="fas fa-link"></i></a><a href="#1、FTP服务器概述" class="headerlink" title="1、FTP服务器概述"></a>1、FTP服务器概述</h2>
+      <ul>
+<li>File Transfer Protocol                 文件传输协议</li>
+</ul>
+
+        <h2 id="2、FTP端口号"   >
+          <a href="#2、FTP端口号" class="heading-link"><i class="fas fa-link"></i></a><a href="#2、FTP端口号" class="headerlink" title="2、FTP端口号"></a>2、FTP端口号</h2>
+      <ul>
+<li>TCP      20/21</li>
+</ul>
+
+        <h2 id="3、FTP工作模式"   >
+          <a href="#3、FTP工作模式" class="heading-link"><i class="fas fa-link"></i></a><a href="#3、FTP工作模式" class="headerlink" title="3、FTP工作模式"></a>3、FTP工作模式</h2>
+      <ul>
+<li>主动模式（ PORT ）：服务器主动从 20 端口向客户机传输数据</li>
+<li>被动模式（ PASV ）：客户机向服务器发出传输请求，然后服务器从随机生成的端口向客户机传输数据</li>
+</ul>
+<p>主被动模式阐述的是数据传输过程<br>主被动模式选择权在客户机<br>主被动是站在服务器角度来说的<br>（主动模式：客户机想让服务器主动）</p>
+<ul>
+<li><p>端口的区别：</p>
+<p>  20端口：数据传输端口（传输文件的）</p>
+<p>  21端口：命令控制端口（传输指令的，比如客户机想要登陆 FTP 就要发送到服务器的 21 端口上）</p>
+</li>
+<li><p>FTP传输简要原理/过程：</p>
+<ol>
+<li><p>客户机随机开一个端口 50001，向服务器端口 21 发送连接请求，然后进行用户登录</p>
+</li>
+<li><p>当客户机向服务器发送了下载文件的请求时，根据工作模式分为两种情况：</p>
+<ul>
+<li><p>主动模式：</p>
+<p>  客户机随机开一个端口 50002，同时服务器开启 20 端口，并从 20 端口向客户机主动传输文件</p>
+<ul>
+<li>若客户机开着防火墙，则服务器无法访问50002端口，那么主动模式没用，只能是被动模式</li>
+</ul>
+</li>
+<li><p>被动模式：</p>
+<p>  客户机随机开一个端口 50002，同时服务器在本地随机开放一个端口 20001，之后客户机主动向服务器发送传输请求，接到请求之后服务器再开始传输文件（即回包）</p>
+<ul>
+<li>若服务器开着防火墙，则客户机无法访问20001端口，那么被动模式没用，只能是主动模式</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>关于客户机连接异常的解决方法：关闭防火墙，把主被动模式都试一下</p>
+</li>
+</ul>
+<p><img src="https://i.loli.net/2021/06/17/b6CPlk4cYx9TgSW.png" alt="Untitled"></p>
+
+        <h2 id="4、部署FTP服务器"   >
+          <a href="#4、部署FTP服务器" class="heading-link"><i class="fas fa-link"></i></a><a href="#4、部署FTP服务器" class="headerlink" title="4、部署FTP服务器"></a>4、部署FTP服务器</h2>
+      <ol>
+<li><p>配置静态 IP</p>
+</li>
+<li><p>安装 IIS - ftp软件（此时21端口已经打开）</p>
+</li>
+<li><p>使用默认站点或者创建新的站点（当一个站点都没有时，端口自动关闭）</p>
+<p> *注意：用户最终权限为 FTP 权限与 NTFS 权限取交集，与共享权限类似</p>
+<p> **建议：FTP 权限全打勾，在 NTFS 设置具体权限</p>
+</li>
+<li><p>禁止匿名访问</p>
+</li>
+</ol>
+<ul>
+<li>访问方式：<span class="exturl"><a class="exturl__link"   href="ftp://10.1.1.1/" >ftp://10.1.1.1</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> ，输入账号密码</li>
+</ul>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://yuchen-zeta.github.io/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/08/07/day07-domain/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">day07 - 域</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/08/05/day05-DHCP/"><span class="paginator-prev__text">day05 - DHCP部署与安全</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81WEB%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">
+          一、WEB服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81WEB%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">
+          1、WEB服务器概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81WEB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E5%8F%A3%E5%8F%B7"><span class="toc-number">1.2.</span> <span class="toc-text">
+          2、WEB服务器端口号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81WEB%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%91%E5%B8%83%E8%BD%AF%E4%BB%B6%EF%BC%9A"><span class="toc-number">1.3.</span> <span class="toc-text">
+          3、WEB服务器发布软件：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E9%83%A8%E7%BD%B2WEB%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">1.4.</span> <span class="toc-text">
+          4、部署WEB服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81%E4%B8%80%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%90%8C%E6%97%B6%E5%8F%91%E5%B8%83%E5%A4%9A%E4%B8%AAWEB%E7%AB%99%E7%82%B9"><span class="toc-number">1.5.</span> <span class="toc-text">
+          5、一台服务器同时发布多个WEB站点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81%E7%BD%91%E7%AB%99%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.6.</span> <span class="toc-text">
+          6、网站类型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81FTP%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">2.</span> <span class="toc-text">
+          二、FTP服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%A6%82%E8%BF%B0"><span class="toc-number">2.1.</span> <span class="toc-text">
+          1、FTP服务器概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81FTP%E7%AB%AF%E5%8F%A3%E5%8F%B7"><span class="toc-number">2.2.</span> <span class="toc-text">
+          2、FTP端口号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81FTP%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.3.</span> <span class="toc-text">
+          3、FTP工作模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E9%83%A8%E7%BD%B2FTP%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">2.4.</span> <span class="toc-text">
+          4、部署FTP服务器</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/blog-logo.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">Laugh Tale</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/yuchen-zeta/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="2058149863" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Yuchen</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-space-shuttle"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

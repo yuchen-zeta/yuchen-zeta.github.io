@@ -1,0 +1,425 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/sharingan.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/sharingan.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="1、 域的概述        Domain 域  内网环境：  工作组：默认模式，人人平等，不方便管理 域       ：人人不平等，集中管理，统一管理   域的特点：   集中管理&#x2F;统一管理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="day07 - 域">
+<meta property="og:url" content="https://yuchen-zeta.github.io/2020/08/07/day07-domain/index.html">
+<meta property="og:site_name" content="Yuchen&#39;s Blog">
+<meta property="og:description" content="1、 域的概述        Domain 域  内网环境：  工作组：默认模式，人人平等，不方便管理 域       ：人人不平等，集中管理，统一管理   域的特点：   集中管理&#x2F;统一管理">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-08-06T16:00:00.000Z">
+<meta property="article:author" content="Yuchen">
+<meta property="article:tag" content="网络安全">
+<meta name="twitter:card" content="summary"><title>day07 - 域 | Yuchen's Blog</title><link ref="canonical" href="https://yuchen-zeta.github.io/2020/08/07/day07-domain/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-feather-alt"></i></span><span class="header-nav-menu-item__text">文章</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/archives/"><span class="header-nav-submenu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-submenu-item__text">归档</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/"><span class="header-nav-submenu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-submenu-item__text">分类</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/tags/"><span class="header-nav-submenu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-submenu-item__text">标签</span></a></div></div></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Yuchen's Blog</div><div class="header-banner-info__subtitle">拉过勾的事情，就一定要做到啊！</div></div><div class="header-banner-arrow"><div class="header-banner-arrow__icon"><i class="fas fa-angle-down"></i></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">day07 - 域</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-08-07</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-08-07</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">830</span></span></div></header><div class="post-body">
+        <h1 id="1、-域的概述"   >
+          <a href="#1、-域的概述" class="heading-link"><i class="fas fa-link"></i></a><a href="#1、-域的概述" class="headerlink" title="1、 域的概述"></a>1、 域的概述</h1>
+      <ul>
+<li><p>Domain 域</p>
+</li>
+<li><p>内网环境：</p>
+<ol>
+<li>工作组：默认模式，人人平等，不方便管理</li>
+<li>域       ：人人不平等，集中管理，统一管理</li>
+</ol>
+</li>
+<li><p>域的特点：</p>
+<p>  <strong>集中管理/统一管理</strong></p>
+  <span id="more"></span></li>
+</ul>
+
+        <h1 id="2、域的组成"   >
+          <a href="#2、域的组成" class="heading-link"><i class="fas fa-link"></i></a><a href="#2、域的组成" class="headerlink" title="2、域的组成"></a>2、域的组成</h1>
+      <ul>
+<li>域控制器：DC（Domain Controller）</li>
+<li>成员机</li>
+</ul>
+
+        <h1 id="3、域的部署"   >
+          <a href="#3、域的部署" class="heading-link"><i class="fas fa-link"></i></a><a href="#3、域的部署" class="headerlink" title="3、域的部署"></a>3、域的部署</h1>
+      <ul>
+<li>安装域控制器–就生成了域环境</li>
+<li>安装活动目录–就生成了域控制器</li>
+<li>活动目录：Active Directory == AD（DC的<strong>核心</strong>）</li>
+</ul>
+
+        <h1 id="4、活动目录"   >
+          <a href="#4、活动目录" class="heading-link"><i class="fas fa-link"></i></a><a href="#4、活动目录" class="headerlink" title="4、活动目录"></a>4、活动目录</h1>
+      <ul>
+<li>AD</li>
+<li>特点：集中管理/统一管理</li>
+</ul>
+
+        <h1 id="5、部署安装活动目录："   >
+          <a href="#5、部署安装活动目录：" class="heading-link"><i class="fas fa-link"></i></a><a href="#5、部署安装活动目录：" class="headerlink" title="5、部署安装活动目录："></a>5、部署安装活动目录：</h1>
+      <ol>
+<li><p>开启2008虚拟机，并桥接到一个VMnet里</p>
+</li>
+<li><p>配置静态 IP 地址 10.1.1.1 /24 (指子网掩码24位，即255.255.255.0)</p>
+</li>
+<li><p>开始–运行–输入 dcpromo，安装活动目录</p>
+<p> 弹出向导：</p>
+<p> 勾选DNS  –  新林中新建域  –  域的FQDN（onepiece.com）–  设置林功能级别和域功能级别，可都为2003  –  设置目录还原密码(666.com)  –    勾选安装后重启</p>
+</li>
+<li><p>在DC登录域  ONEPIECE/administrator，DC的本地管理员自动升级为域管理员，</p>
+</li>
+<li><p>检验AD是否安装成功：</p>
+<ol>
+<li><p>计算机右键属性  -  查看所属域</p>
+</li>
+<li><p>DNS服务器中是否自动创建onepiece.com区域文件<br>及自动注册DC的域名解析记录</p>
+</li>
+<li><p>开始 – 管理工具 – AD用户和计算机</p>
+<p>  computer：普通域成员机列表</p>
+<p>  Domain Controller：DC列表</p>
+<p>  users：域账号</p>
+</li>
+</ol>
+</li>
+</ol>
+
+        <h1 id="6、PC加入域"   >
+          <a href="#6、PC加入域" class="heading-link"><i class="fas fa-link"></i></a><a href="#6、PC加入域" class="headerlink" title="6、PC加入域"></a>6、PC加入域</h1>
+      <ol>
+<li>配置IP，并指DNS，且要把ipv6去勾</li>
+<li>计算机右键属性–更改–加入onepiece.com域<ul>
+<li>DC发来验证，需要有权限加入域的账号密码<br>若用域管理员登录，用户名为administrator,若识别出域，直接写用户名,  若没有则用户名写  onepiece.com\administrator</li>
+</ul>
+</li>
+<li>重启加入域后，成功使用域用户登录成员机<ul>
+<li>通常用户名例如：路飞 —&gt; fei.lu</li>
+</ul>
+</li>
+</ol>
+<p>常见的小问题<br>1）加入域不成功<br>    网络是不是不通，IP有没有配好<br>    解析是否成功解析，nslookup 域名<br>    是否为DNS缓存问题，ipconfig  /flushdns<br>2）登入域不成功<br>     如XP，已勾选登录域onepiece，不用再写onepiece.com\fei.lu<br>3）域用户的权限<br>     建议将域用户加入到普通成员机的本地管理员组中</p>
+<p>×××本店管理员组：administrators<br>×××域管理员组    ：Domain Admins</p>
+
+        <h1 id="7、组织单位-OU"   >
+          <a href="#7、组织单位-OU" class="heading-link"><i class="fas fa-link"></i></a><a href="#7、组织单位-OU" class="headerlink" title="7、组织单位 OU"></a>7、组织单位 OU</h1>
+      <ul>
+<li>组织单位：OU，Organizational Unit</li>
+<li>作用：用于归类域资源（域用户、域计算机、域组）下发组策略</li>
+<li>创建：在域管理中右键新建</li>
+</ul>
+
+        <h1 id="8、组策略-GPO"   >
+          <a href="#8、组策略-GPO" class="heading-link"><i class="fas fa-link"></i></a><a href="#8、组策略-GPO" class="headerlink" title="8、组策略 GPO"></a>8、组策略 GPO</h1>
+      <ul>
+<li><p>GPO：Group Policy</p>
+</li>
+<li><p>作用：通过组策略可以修改计算机各种属性，如开始菜单、桌面背景、网络参数</p>
+</li>
+<li><p>组策略在域中，是基于OU下发的</p>
+</li>
+<li><p>在域中，组策略的应用顺序是 LSDOU<br>LSDOU（策略优先级）Local Site Domain Organizational Unit<br>应用过程中，如果出现冲突，后应用的生效</p>
+<p>  ===LSDOU顺序<br>  上级OU： 桌面：aa              |        运行：删除<br>  下级OU： 桌面：未配置       |        运行：不删除</p>
+<p>  =正常情况下：<br>  结果     ： 桌面：aa               |       运行：不删除</p>
+<p>  =下级OU设置了阻止继承：(只看自己OU的组策略)<br>  结果     ：  桌面：未配置       |       运行：不删除</p>
+<p>  =上级设置了强制：             (下级组策略只看强制的组策略)<br>  结果     ：  桌面：aa              |        运行：删除</p>
+<p>  注意：当上级强制和下级阻止继承同时设置，强制生效</p>
+</li>
+</ul>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://yuchen-zeta.github.io/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/08/08/day08%20-%20PKI%20/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">day08 - PKI</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/08/06/day06-IIS-WEB-FTP/"><span class="paginator-prev__text">day06 - IIS - WEB服务器 | FTP服务器</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1%E3%80%81-%E5%9F%9F%E7%9A%84%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">
+          1、 域的概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2%E3%80%81%E5%9F%9F%E7%9A%84%E7%BB%84%E6%88%90"><span class="toc-number">2.</span> <span class="toc-text">
+          2、域的组成</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3%E3%80%81%E5%9F%9F%E7%9A%84%E9%83%A8%E7%BD%B2"><span class="toc-number">3.</span> <span class="toc-text">
+          3、域的部署</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4%E3%80%81%E6%B4%BB%E5%8A%A8%E7%9B%AE%E5%BD%95"><span class="toc-number">4.</span> <span class="toc-text">
+          4、活动目录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5%E3%80%81%E9%83%A8%E7%BD%B2%E5%AE%89%E8%A3%85%E6%B4%BB%E5%8A%A8%E7%9B%AE%E5%BD%95%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">
+          5、部署安装活动目录：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6%E3%80%81PC%E5%8A%A0%E5%85%A5%E5%9F%9F"><span class="toc-number">6.</span> <span class="toc-text">
+          6、PC加入域</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7%E3%80%81%E7%BB%84%E7%BB%87%E5%8D%95%E4%BD%8D-OU"><span class="toc-number">7.</span> <span class="toc-text">
+          7、组织单位 OU</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8%E3%80%81%E7%BB%84%E7%AD%96%E7%95%A5-GPO"><span class="toc-number">8.</span> <span class="toc-text">
+          8、组策略 GPO</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/blog-logo.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">Laugh Tale</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/yuchen-zeta/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="2058149863" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Yuchen</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-space-shuttle"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>
