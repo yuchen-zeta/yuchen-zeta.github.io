@@ -5,13 +5,16 @@
 <meta property="og:site_name" content="Yuchen&#39;s Blog">
 <meta property="og:description" content="一、扫描技术                           1.扫描概述        人工与工具的结合  主机探测：确定目标主机是否存活  端口扫描：寻找在线主机所开放的端口，并且在端口上所运行的服务。甚至可以进一步确定目标主机操作系统的类型和更详细的信息">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://yuchen-zeta.github.io/2020/08/10/day10-Scanning&blasting/..%5Cassets%5Cposts%5Cday10-Scanning&blasting%5CUntitled.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/202008day10(0).png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/202008day10(1).png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/202008day10(2).png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/202008day10(3).png">
 <meta property="article:published_time" content="2020-08-09T16:00:00.000Z">
 <meta property="article:modified_time" content="2020-08-09T16:00:00.000Z">
 <meta property="article:author" content="Yuchen">
 <meta property="article:tag" content="网络安全">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://yuchen-zeta.github.io/2020/08/10/day10-Scanning&blasting/..%5Cassets%5Cposts%5Cday10-Scanning&blasting%5CUntitled.png"><title>day10 - 扫描与爆破 | Yuchen's Blog</title><link ref="canonical" href="https://yuchen-zeta.github.io/2020/08/10/day10-Scanning&amp;blasting/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+<meta name="twitter:image" content="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/202008day10(0).png"><title>day10 - 扫描与爆破 | Yuchen's Blog</title><link ref="canonical" href="https://yuchen-zeta.github.io/2020/08/10/day10-Scanning&amp;blasting/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
 var CONFIG = {
   root: '/',
   algolia: undefined,
@@ -35,11 +38,11 @@ var CONFIG = {
   sourcePath: {"js":"js","css":"css","images":"images"},
 };
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-feather-alt"></i></span><span class="header-nav-menu-item__text">文章</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/archives/"><span class="header-nav-submenu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-submenu-item__text">归档</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/"><span class="header-nav-submenu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-submenu-item__text">分类</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/tags/"><span class="header-nav-submenu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-submenu-item__text">标签</span></a></div></div></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Yuchen's Blog</div><div class="header-banner-info__subtitle">拉过勾的事情，就一定要做到啊！</div></div><div class="header-banner-arrow"><div class="header-banner-arrow__icon"><i class="fas fa-angle-down"></i></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">day10 - 扫描与爆破</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-08-10</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-08-10</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">496</span></span></div></header><div class="post-body">
-        <h1 id="一、扫描技术"   >
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-feather-alt"></i></span><span class="header-nav-menu-item__text">文章</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/archives/"><span class="header-nav-submenu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-submenu-item__text">归档</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/"><span class="header-nav-submenu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-submenu-item__text">分类</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/tags/"><span class="header-nav-submenu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-submenu-item__text">标签</span></a></div></div></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Yuchen's Blog</div><div class="header-banner-info__subtitle">拉过勾的事情，就一定要做到啊！</div></div><div class="header-banner-arrow"><div class="header-banner-arrow__icon"><i class="fas fa-angle-down"></i></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">day10 - 扫描与爆破</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-08-10</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-08-10</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">463</span></span></div></header><div class="post-body">
+        <h1 id="一、扫描技术">
           <a href="#一、扫描技术" class="heading-link"><i class="fas fa-link"></i></a><a href="#一、扫描技术" class="headerlink" title="一、扫描技术"></a>一、扫描技术</h1>
       
-        <h2 id="1-扫描概述"   >
+        <h2 id="1-扫描概述">
           <a href="#1-扫描概述" class="heading-link"><i class="fas fa-link"></i></a><a href="#1-扫描概述" class="headerlink" title="1.扫描概述"></a>1.扫描概述</h2>
       <ul>
 <li><p>人工与工具的结合</p>
@@ -50,29 +53,29 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <span id="more"></span></li>
 </ul>
 
-        <h2 id="2-基础知识"   >
+        <h2 id="2-基础知识">
           <a href="#2-基础知识" class="heading-link"><i class="fas fa-link"></i></a><a href="#2-基础知识" class="headerlink" title="2.基础知识"></a>2.基础知识</h2>
       <ul>
 <li><p>常见端口号</p>
-<p>  <img src="..%5Cassets%5Cposts%5Cday10-Scanning&blasting%5CUntitled.png" alt="Untitled"></p>
+<p>  <img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/202008day10(0).png"></p>
 </li>
 </ul>
 
-        <h2 id="3-Nmap扫描器"   >
+        <h2 id="3-Nmap扫描器">
           <a href="#3-Nmap扫描器" class="heading-link"><i class="fas fa-link"></i></a><a href="#3-Nmap扫描器" class="headerlink" title="3.Nmap扫描器"></a>3.Nmap扫描器</h2>
       <ul>
 <li><p>重要常用参数</p>
-<p>  ![Untitled 1](..\assets\posts\day10-Scanning&amp;blasting\Untitled 1.png)</p>
+<p>  <img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/202008day10(1).png"></p>
 </li>
 <li><p>常见用法</p>
 </li>
 </ul>
 <p>Nmap <strong>-sP</strong> 10.1.1.1**/24**                     #扫描10.1.1.0 整个网段<br>Nmap -p   <strong>21,23-25,3389</strong> 10.1.1.1  #扫描 指定IP的 指定端口<br>Nmap -p   21,23 10.1.1.1 <strong>-sV</strong>          # 扫描21，23的服务版本<br>Nmap <strong>-A</strong>   10.1.1.1                          #全面扫描<br>Nmap <strong>-O</strong>   10.1.1.1                          #扫描目标系统版本(win,linux)<br>Nmap -p    21,23 10.1.1.1 <strong>-oN d:\result.txt</strong>  #生成一个结果文档</p>
 
-        <h1 id="二、爆破"   >
+        <h1 id="二、爆破">
           <a href="#二、爆破" class="heading-link"><i class="fas fa-link"></i></a><a href="#二、爆破" class="headerlink" title="二、爆破"></a>二、爆破</h1>
       
-        <h2 id="1-Hydra-九头蛇-远程爆破工具"   >
+        <h2 id="1-Hydra-九头蛇-远程爆破工具">
           <a href="#1-Hydra-九头蛇-远程爆破工具" class="heading-link"><i class="fas fa-link"></i></a><a href="#1-Hydra-九头蛇-远程爆破工具" class="headerlink" title="1.Hydra 九头蛇 远程爆破工具"></a>1.Hydra 九头蛇 远程爆破工具</h2>
       <ul>
 <li>Hydra -l 用户名 -p 密码 IP 端口服务名称<ul>
@@ -88,7 +91,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <p>Hydra.exe -l a <strong>-P</strong>  d:\password.txt  10.1.1.1  ftp<br>Hydra.exe -l a <strong>-P</strong>  d:\password.txt  10.1.1.1  mysql</p>
 <p>Hydra.exe <strong>-L</strong> d:\user.txt <strong>-P</strong>  d:\password.txt  10.1.1.1  mysql</p>
 
-        <h2 id="2-本地爆破"   >
+        <h2 id="2-本地爆破">
           <a href="#2-本地爆破" class="heading-link"><i class="fas fa-link"></i></a><a href="#2-本地爆破" class="headerlink" title="2.本地爆破"></a>2.本地爆破</h2>
       <ul>
 <li><p>get pass 漏洞：系统登陆后会把密码保存在内存中 (win10 已经修复)</p>
@@ -100,10 +103,10 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <li><p>5 次 shift 粘滞键漏洞</p>
 </li>
 <li><p>用 pwdump 获取登陆 hash 然后解密</p>
-<p>  ![Untitled 2](..\assets\posts\day10-Scanning&amp;blasting\Untitled 2.png)</p>
+<p>  <img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/202008day10(2).png"></p>
 <p>  手工将hash值存储到hash.txt中</p>
 <p>  使用saminside软件进行暴力破解</p>
-<p>  ![Untitled 3](..\assets\posts\day10-Scanning&amp;blasting\Untitled 3.png)</p>
+<p>  <img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/202008day10(3).png"></p>
 </li>
 </ul>
 </div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://yuchen-zeta.github.io/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/08/11/day11-OSI-TCP-IP-5/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">day11 - OSI与TCP-IP 5层协议 | 物理层</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/08/09/day09-Simple-penetration-test/"><span class="paginator-prev__text">day09 - 简单渗透测试</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%89%AB%E6%8F%8F%E6%8A%80%E6%9C%AF"><span class="toc-number">1.</span> <span class="toc-text">

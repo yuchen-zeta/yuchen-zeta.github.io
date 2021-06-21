@@ -37,13 +37,13 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <span id="more"></span>
 
 
-        <h1 id="一、文件共享服务器概述"   >
+        <h1 id="一、文件共享服务器概述">
           <a href="#一、文件共享服务器概述" class="heading-link"><i class="fas fa-link"></i></a><a href="#一、文件共享服务器概述" class="headerlink" title="一、文件共享服务器概述"></a>一、文件共享服务器概述</h1>
       <ul>
 <li>通过网络提供文件共享服务，提供文件下载和上传服务（类似于FTP服务器）</li>
 </ul>
 
-        <h1 id="二、创建共享"   >
+        <h1 id="二、创建共享">
           <a href="#二、创建共享" class="heading-link"><i class="fas fa-link"></i></a><a href="#二、创建共享" class="headerlink" title="二、创建共享"></a>二、创建共享</h1>
       <ul>
 <li><p>方法:文件夹右键属性－共享－开启共享－设置共享名－设置共享权限</p>
@@ -53,21 +53,21 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 </li>
 </ul>
 
-        <h1 id="三、访问共享"   >
+        <h1 id="三、访问共享">
           <a href="#三、访问共享" class="heading-link"><i class="fas fa-link"></i></a><a href="#三、访问共享" class="headerlink" title="三、访问共享"></a>三、访问共享</h1>
       <ul>
 <li>在开始运行或我的电脑地址栏中，输入 UNC 地址：<br>\文件共享服务器IP<br>\文件共享服务器IP\共享名  (与共享文件在服务器的路径位置无关)</li>
 <li>第一次访问需要服务器上一个账户,共享前,服务器可以新建一个临时用户<br>再次访问会直接登录,若要换账号登录,自己电脑注销重进就可以</li>
 </ul>
 
-        <h1 id="四、隐藏共享与访问方法"   >
+        <h1 id="四、隐藏共享与访问方法">
           <a href="#四、隐藏共享与访问方法" class="heading-link"><i class="fas fa-link"></i></a><a href="#四、隐藏共享与访问方法" class="headerlink" title="四、隐藏共享与访问方法"></a>四、隐藏共享与访问方法</h1>
       <ul>
 <li>在分享时将分享名后面加上 $ 符号，如 share$</li>
 <li>在访问使需要知道该共享名 share$ 才能访问<br>手动输入  \文件共享服务器IP\共享名  ，如\10.1.1.2\share$</li>
 </ul>
 
-        <h1 id="五、相关共享DOS命令"   >
+        <h1 id="五、相关共享DOS命令">
           <a href="#五、相关共享DOS命令" class="heading-link"><i class="fas fa-link"></i></a><a href="#五、相关共享DOS命令" class="headerlink" title="五、相关共享DOS命令"></a>五、相关共享DOS命令</h1>
       <ul>
 <li>net share                                  #列出共享列表</li>
@@ -75,7 +75,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <li>net share 共享名 /del              #删除共享文件</li>
 </ul>
 
-        <h1 id="六、屏蔽系统隐藏共享自动产生"   >
+        <h1 id="六、屏蔽系统隐藏共享自动产生">
           <a href="#六、屏蔽系统隐藏共享自动产生" class="heading-link"><i class="fas fa-link"></i></a><a href="#六、屏蔽系统隐藏共享自动产生" class="headerlink" title="六、屏蔽系统隐藏共享自动产生"></a>六、屏蔽系统隐藏共享自动产生</h1>
       <ul>
 <li><p><strong>打开注册表</strong></p>
@@ -88,12 +88,12 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 </li>
 </ul>
 
-        <h1 id="七、查看本地网络连接状态"   >
+        <h1 id="七、查看本地网络连接状态">
           <a href="#七、查看本地网络连接状态" class="heading-link"><i class="fas fa-link"></i></a><a href="#七、查看本地网络连接状态" class="headerlink" title="七、查看本地网络连接状态"></a>七、查看本地网络连接状态</h1>
       <pre><code>     netstat -an （查端口，是否开放）
 </code></pre>
 
-        <h1 id="八、关闭445服务"   >
+        <h1 id="八、关闭445服务">
           <a href="#八、关闭445服务" class="heading-link"><i class="fas fa-link"></i></a><a href="#八、关闭445服务" class="headerlink" title="八、关闭445服务"></a>八、关闭445服务</h1>
       <p>可以通过关闭445端口来屏蔽病毒传入（如勒索病毒等）</p>
 <ul>
