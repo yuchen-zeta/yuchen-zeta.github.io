@@ -52,6 +52,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <hr>
 <p>其中邮件数据集来源于阿帕奇的<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="http://spamassassin.apache.org/old/publiccorpus/">SpamAssassin公共语料库</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 <p><img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/202106(1).png"></p>
+<hr>
 <p>本实验主要分为以下几个部分</p>
 
         <h1 id="邮件处理">
@@ -88,6 +89,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <p><img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/202106(2).png"></p>
 <hr>
 <p><img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/202106(3).png"></p>
+<hr>
 
         <h2 id="标准化">
           <a href="#标准化" class="heading-link"><i class="fas fa-link"></i></a><a href="#标准化" class="headerlink" title="标准化"></a>标准化</h2>
@@ -99,6 +101,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <figure class="highlight matlab"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:<span class="built_in">length</span>(vocabList)</span><br><span class="line">    <span class="keyword">if</span>(strcmp(vocabList(<span class="built_in">i</span>), str))</span><br><span class="line">        word_indices = [word_indices; <span class="built_in">i</span>];</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></div></figure>
 
 <p><img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/202106(4).png"></p>
+<hr>
 
         <h1 id="特征提取">
           <a href="#特征提取" class="heading-link"><i class="fas fa-link"></i></a><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h1>
@@ -121,6 +124,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
           <a href="#最佳预测词" class="heading-link"><i class="fas fa-link"></i></a><a href="#最佳预测词" class="headerlink" title="最佳预测词"></a>最佳预测词</h1>
       <p>为了更好的理解垃圾邮件分类器的工作原理，我们可以检查参数，看看分类器认为哪些单词是最能判定一封邮件是垃圾邮件的。</p>
 <p><img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/202106(6).png"></p>
+<hr>
 
         <h1 id="选做-测试自己的邮件">
           <a href="#选做-测试自己的邮件" class="heading-link"><i class="fas fa-link"></i></a><a href="#选做-测试自己的邮件" class="headerlink" title="选做-测试自己的邮件"></a>选做-测试自己的邮件</h1>
@@ -130,6 +134,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <hr>
 <p><img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/202106(8).png"></p>
 <p>结果是0，不是垃圾邮件 (没有打脸，Nice)</p>
+<hr>
 <p>再试试网飞的推销订阅邮件(毫无疑问是垃圾邮件)</p>
 <p><img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/202106(9).png"></p>
 <hr>
