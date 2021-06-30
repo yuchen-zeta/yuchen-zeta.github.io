@@ -44,21 +44,33 @@ var CONFIG = {
   sourcePath: {"js":"js","css":"css","images":"images"},
 };
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-feather-alt"></i></span><span class="header-nav-menu-item__text">文章</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/archives/"><span class="header-nav-submenu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-submenu-item__text">归档</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/"><span class="header-nav-submenu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-submenu-item__text">分类</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/tags/"><span class="header-nav-submenu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-submenu-item__text">标签</span></a></div></div></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Yuchen's Blog</div><div class="header-banner-info__subtitle">受尽苦难而不厌，此乃修罗之道。——索隆</div></div><div class="header-banner-arrow"><div class="header-banner-arrow__icon"><i class="fas fa-angle-down"></i></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Spam-Classification</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-06-25</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-06-25</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.5k</span></span></div></header><div class="post-body"><p>通过组员对题目和实验第一部分详细的讲解，我们对支持向量机是如何工作的以及如何使用支持向量机中的高斯核有了一个直观的认识，在第二部分中，我们要使用支持向量机解决一个实际的问题，垃圾邮件过滤，我们使用支持向量机构建垃圾邮件过滤器，也就是用数据训练一个分类器以分类电子邮件是否是垃圾邮件，垃圾邮件分类结果为1，非垃圾邮件分类结果为0</p>
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-feather-alt"></i></span><span class="header-nav-menu-item__text">文章</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/archives/"><span class="header-nav-submenu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-submenu-item__text">归档</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/"><span class="header-nav-submenu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-submenu-item__text">分类</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/tags/"><span class="header-nav-submenu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-submenu-item__text">标签</span></a></div></div></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Yuchen's Blog</div><div class="header-banner-info__subtitle">受尽苦难而不厌，此乃修罗之道。——索隆</div></div><div class="header-banner-arrow"><div class="header-banner-arrow__icon"><i class="fas fa-angle-down"></i></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Spam-Classification</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-06-25</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-06-25</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.5k</span></span></div></header><div class="post-body"><blockquote>
+<p>通过组员对题目和实验第一部分详细的讲解，我们对支持向量机是如何工作的以及如何使用支持向量机中的高斯核有了一个直观的认识，在第二部分中，我们要使用支持向量机解决一个实际的问题，垃圾邮件过滤，我们使用支持向量机构建垃圾邮件过滤器，也就是用数据训练一个分类器以分类电子邮件是否是垃圾邮件，垃圾邮件分类结果为1，非垃圾邮件分类结果为0</p>
+</blockquote>
 <span id="more"></span>
 
-<p>其中邮件数据集来源于阿帕奇的SpamAssassin公共语料库</p>
+<hr>
+<p>其中邮件数据集来源于阿帕奇的<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="http://spamassassin.apache.org/old/publiccorpus/">SpamAssassin公共语料库</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 <p><img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/202106(1).png"></p>
 <p>本实验主要分为以下几个部分</p>
 
         <h1 id="邮件处理">
           <a href="#邮件处理" class="heading-link"><i class="fas fa-link"></i></a><a href="#邮件处理" class="headerlink" title="邮件处理"></a>邮件处理</h1>
       <p>在开始编程之前，我们首先需要建立模型。</p>
-<p>对于垃圾邮件和正常邮件，应该怎样区分呢，通常来说，垃圾邮件中大概率会出现网址、数字、金额等信息，这是有别于正常邮件的地方，很自然的我们会想把这些信息作为特征提取出来，以便更好的实现邮件过滤。</p>
-<p>那么下一步要做的就是考虑这些特征如何提取了，或许很多邮件中都会包含类似的数据，但是几乎每一封电子邮件中都是不同的。因此我们的思路是把这些数据简单的进行分类。打个比方，遇到一封邮件，如果出现了网址信息，我们并不关心他给出的网址是什么，我们知道在这一封邮件中出现了URL，那么根据经验，这封邮件是垃圾邮件的可能就比较大。<br>这样做的效果是让垃圾分类器根据是否存在任何URL而不是某个特定的URL来做出分类决策，以提高垃圾邮件分类器的性能。</p>
+<ul>
+<li><p>对于垃圾邮件和正常邮件，应该怎样区分呢，通常来说，垃圾邮件中大概率会出现网址、数字、金额等信息，这是有别于正常邮件的地方，很自然的我们会想把这些信息作为特征提取出来，以便更好的实现邮件过滤。</p>
+</li>
+<li><p>那么下一步要做的就是考虑这些特征如何提取了，或许很多邮件中都会包含类似的数据，但是几乎每一封电子邮件中都是不同的。因此我们的思路是把这些数据简单的进行分类。打个比方，遇到一封邮件，如果出现了网址信息，我们并不关心他给出的网址是什么，我们知道在这一封邮件中出现了URL，那么根据经验，这封邮件是垃圾邮件的可能就比较大。</p>
+<ul>
+<li>这样做的效果是让垃圾分类器根据是否存在任何URL而不是某个特定的URL来做出分类决策，以提高垃圾邮件分类器的性能。</li>
+</ul>
+</li>
+</ul>
 <p>那么具体如何实现呢，我们的思路是将这些值规范化，以便将各种各样的网址都视为相同的，所有的数字也视为相同的。</p>
 <p>处理主要分为预处理和标准化两部分</p>
+<blockquote>
 <p>我们之前说的将这些值规范化在预处理中进行，第二步的标准化的意思就是把预处理后的邮件文本信息和一个数组建立映射关系，其实说成字典会更好理解以下，用单词在字典中的位置作为特征值提取出来</p>
+</blockquote>
 
         <h2 id="预处理">
           <a href="#预处理" class="heading-link"><i class="fas fa-link"></i></a><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h2>
@@ -80,7 +92,9 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
         <h2 id="标准化">
           <a href="#标准化" class="heading-link"><i class="fas fa-link"></i></a><a href="#标准化" class="headerlink" title="标准化"></a>标准化</h2>
       <p>在对电子邮件进行预处理之后，我们对其进行标准化，把每封电子邮件转换成一个单词索引矩阵，在这个过程中，我们选择了最经常出现的单词作为我们考虑的词汇表，实验所给的词汇表有1899个单词。</p>
+<blockquote>
 <p>至于为什么不把出现次数比较少的单词纳入字典中，这不仅仅是他们的加入对模型的帮助不大，在训练的过程中，出现次数少的单词只出现在少数的电子邮件中，他们可能会导致模型过拟合我们的数据集。</p>
+</blockquote>
 <p>那么接下来我们要做的就是逐单词遍历预处理后的邮件内容，与我们字典中的数据进行对比，找到就记录到word_indices[]矩阵中</p>
 <figure class="highlight matlab"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:<span class="built_in">length</span>(vocabList)</span><br><span class="line">    <span class="keyword">if</span>(strcmp(vocabList(<span class="built_in">i</span>), str))</span><br><span class="line">        word_indices = [word_indices; <span class="built_in">i</span>];</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></div></figure>
 
@@ -95,8 +109,12 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
         <h1 id="训练SVM">
           <a href="#训练SVM" class="heading-link"><i class="fas fa-link"></i></a><a href="#训练SVM" class="headerlink" title="训练SVM"></a>训练SVM</h1>
       <p>了解了如何提取出一封邮件的特征后，接下来要开始训练支持向量机。在此训练的数据是实验提供的，其中spamTrain.mat提供了4000封邮件的特征及其类型，spamTest.mat中提供了1000封邮件的特征。</p>
-<p>训练结束后在训练集上做验证，得到了99.85%的正确率</p>
-<p>然后在测试集上做验证，得到了98.9%的正确率</p>
+<ul>
+<li><p>训练结束后在训练集上做验证，得到了99.85%的正确率</p>
+</li>
+<li><p>然后在测试集上做验证，得到了98.9%的正确率</p>
+</li>
+</ul>
 <p><img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/202106(5).png"></p>
 
         <h1 id="最佳预测词">
