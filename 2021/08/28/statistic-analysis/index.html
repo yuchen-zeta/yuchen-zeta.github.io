@@ -1,0 +1,452 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/sharingan.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/sharingan.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="12345zscore();    % 标准化函数，对每一列进行，(x-均值)&#x2F;标准差diag();      % 取矩阵对角元素成新矩阵cumsum();    % 向量的累积和，矩阵中每列的累积和normplot();  % 分析数据是否服从正态分布，散点越贴近斜率为1 的曲线越好var();       % 求方差                       统计分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="notebook">
+<meta property="og:url" content="https://yuchen-zeta.github.io/2021/08/28/statistic-analysis/index.html">
+<meta property="og:site_name" content="Yuchen&#39;s Blog">
+<meta property="og:description" content="12345zscore();    % 标准化函数，对每一列进行，(x-均值)&#x2F;标准差diag();      % 取矩阵对角元素成新矩阵cumsum();    % 向量的累积和，矩阵中每列的累积和normplot();  % 分析数据是否服从正态分布，散点越贴近斜率为1 的曲线越好var();       % 求方差                       统计分析">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-08-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-08-27T16:00:00.000Z">
+<meta property="article:author" content="Yuchen">
+<meta property="article:tag" content="数学建模">
+<meta name="twitter:card" content="summary"><title>notebook | Yuchen's Blog</title><link ref="canonical" href="https://yuchen-zeta.github.io/2021/08/28/statistic-analysis/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-feather-alt"></i></span><span class="header-nav-menu-item__text">文章</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/archives/"><span class="header-nav-submenu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-submenu-item__text">归档</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/"><span class="header-nav-submenu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-submenu-item__text">分类</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/tags/"><span class="header-nav-submenu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-submenu-item__text">标签</span></a></div></div></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Yuchen's Blog</div><div class="header-banner-info__subtitle">受尽苦难而不厌，此乃修罗之道。——索隆</div></div><div class="header-banner-arrow"><div class="header-banner-arrow__icon"><i class="fas fa-angle-down"></i></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">notebook</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-08-28</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2021-08-28</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.5k</span></span></div></header><div class="post-body"><hr>
+<figure class="highlight matlab"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">zscore();    <span class="comment">% 标准化函数，对每一列进行，(x-均值)/标准差</span></span><br><span class="line"><span class="built_in">diag</span>();      <span class="comment">% 取矩阵对角元素成新矩阵</span></span><br><span class="line">cumsum();    <span class="comment">% 向量的累积和，矩阵中每列的累积和</span></span><br><span class="line">normplot();  <span class="comment">% 分析数据是否服从正态分布，散点越贴近斜率为1 的曲线越好</span></span><br><span class="line">var();       <span class="comment">% 求方差</span></span><br></pre></td></tr></table></div></figure>
+
+<hr>
+
+        <h1 id="统计分析">
+          <a href="#统计分析" class="heading-link"><i class="fas fa-link"></i></a><a href="#统计分析" class="headerlink" title="统计分析"></a>统计分析</h1>
+      
+        <h2 id="回归分析">
+          <a href="#回归分析" class="heading-link"><i class="fas fa-link"></i></a><a href="#回归分析" class="headerlink" title="回归分析"></a>回归分析</h2>
+      <blockquote>
+<p>回归分析是处理变量之间<strong>相关关系</strong>的数学方法</p>
+</blockquote>
+<span id="more"></span>
+
+
+        <h3 id="多元线性回归-regress">
+          <a href="#多元线性回归-regress" class="heading-link"><i class="fas fa-link"></i></a><a href="#多元线性回归-regress" class="headerlink" title="多元线性回归 regress"></a>多元线性回归 regress</h3>
+      <figure class="highlight matlab"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[b,bint,r,rint,stats] = regress(y,X,alpha)</span><br></pre></td></tr></table></div></figure>
+
+<p><strong>输入：</strong></p>
+<ul>
+<li>y： 响应数据，指定为 n×1 数值向量</li>
+<li>X：预测变量数据，指定为 n×p 数值矩阵。X 的行对应于各个观测值，列对应于预测变量</li>
+<li>alpha：显著性水平，0 和 1 之间，默认为0.05</li>
+</ul>
+<p>注：X 的行数必须与 y 的行数相同。p列的含义就是变量的个数再加一(常数项)</p>
+<p><strong>输出：</strong></p>
+<ul>
+<li>b：回归系数的点估计值</li>
+<li>bint：回归系数的区间估计（95%置信区间）</li>
+<li>r、rint：残差及其置信区间</li>
+<li>stats：检验回归模型的统计量，有四个数值<ul>
+<li>R^2：相关系数，越接近1，回归方程越显著</li>
+<li>F统计量：越大，回归方程越显著</li>
+<li>p值：与F统计量对应的概率，越接近0，回归方程越显著</li>
+<li>误差方差的估计值</li>
+</ul>
+</li>
+</ul>
+<p><strong>用法：</strong></p>
+<figure class="highlight matlab"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">x1 = [...]&#x27;;</span><br><span class="line">x2 = [...]&#x27;;</span><br><span class="line">y =  [...]&#x27;;</span><br><span class="line">X = [<span class="built_in">ones</span>(<span class="built_in">size</span>(x1),<span class="number">1</span>) x1 x2 x1.*x2];</span><br><span class="line">[b,bint,r,rint,stats] = regress(y,X)</span><br><span class="line"></span><br><span class="line"><span class="comment">% 残差分析，区间不含零点可视为异常点</span></span><br><span class="line">rcoplot(r,rint)</span><br><span class="line"><span class="comment">% 预测及作图,拿单变量举例</span></span><br><span class="line">y2=b(<span class="number">1</span>)+b(<span class="number">2</span>)*x;</span><br><span class="line"><span class="built_in">plot</span>(x,y,<span class="string">&#x27;k+&#x27;</span>,x,y2,<span class="string">&#x27;r&#x27;</span>)</span><br></pre></td></tr></table></div></figure>
+
+<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://ww2.mathworks.cn/help/stats/regress.html">regress官网链接</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+
+        <h3 id="多元二项式回归-rstool">
+          <a href="#多元二项式回归-rstool" class="heading-link"><i class="fas fa-link"></i></a><a href="#多元二项式回归-rstool" class="headerlink" title="多元二项式回归 rstool"></a>多元二项式回归 rstool</h3>
+      <figure class="highlight matlab"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rstool(x,y,<span class="string">&#x27;model&#x27;</span>)</span><br></pre></td></tr></table></div></figure>
+
+<p>model有四种可选：linear、purequadratic、interaction、quadratic.</p>
+<p>在交互式界面中输入需要预测的自变量数值，可以得到预测结果。</p>
+<p>输出结果中rmse(剩余标准差)最小的模型最好。</p>
+
+        <h3 id="非线性回归-nlinfit">
+          <a href="#非线性回归-nlinfit" class="heading-link"><i class="fas fa-link"></i></a><a href="#非线性回归-nlinfit" class="headerlink" title="非线性回归 nlinfit"></a>非线性回归 nlinfit</h3>
+      <figure class="highlight matlab"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">y</span>=<span class="title">func</span><span class="params">(beta,x)</span></span></span><br><span class="line">x1=x(:,<span class="number">1</span>);</span><br><span class="line">x2=x(:,<span class="number">2</span>);</span><br><span class="line">......;</span><br><span class="line"></span><br><span class="line">x=[...]&#x27;;</span><br><span class="line">y=[...]&#x27;;</span><br><span class="line">beta0=[...]&#x27;;</span><br><span class="line"></span><br><span class="line">[<span class="built_in">beta</span>,r,J]=nlinfit(x,y,<span class="string">&#x27;func&#x27;</span>,beta0)</span><br></pre></td></tr></table></div></figure>
+
+<p>输入 需要定义函数形式func 以及回归系数的初值beta0，可任意多元</p>
+
+        <h3 id="逐步回归-stepwise">
+          <a href="#逐步回归-stepwise" class="heading-link"><i class="fas fa-link"></i></a><a href="#逐步回归-stepwise" class="headerlink" title="逐步回归 stepwise"></a>逐步回归 stepwise</h3>
+      <figure class="highlight matlab"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stepwise(x,y)</span><br></pre></td></tr></table></div></figure>
+
+<p>逐步回归主要是在选取变量的时候使用，选择加入相应的变量，观测rmse(标准剩余差)，越小越好</p>
+<p>挑出变量后还是自己确定函数形式，并用前三种方法确定系数</p>
+
+        <h2 id="聚类分析">
+          <a href="#聚类分析" class="heading-link"><i class="fas fa-link"></i></a><a href="#聚类分析" class="headerlink" title="聚类分析"></a>聚类分析</h2>
+      <blockquote>
+<p>可简单理解为 无监督</p>
+</blockquote>
+<figure class="highlight matlab"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">x=[</span><br><span class="line">...  ...</span><br><span class="line">...  ... ];</span><br><span class="line"></span><br><span class="line">x2=zscore(x);                   <span class="comment">%标准化</span></span><br><span class="line">y2=pdist(x2,<span class="string">&#x27;euclidean&#x27;</span>);       <span class="comment">%采用欧氏距离</span></span><br><span class="line">z2=linkage(y2, <span class="string">&#x27;ward&#x27;</span>);         <span class="comment">%采用内平方距离法</span></span><br><span class="line"><span class="comment">% z2=linkage(y2, &#x27;complete&#x27;);    %采用最长距离法</span></span><br><span class="line">h=dendrogram(z2);               <span class="comment">%生成只有顶部n个节点的冰柱图（谱系图）</span></span><br></pre></td></tr></table></div></figure>
+
+
+        <h2 id="判别分析">
+          <a href="#判别分析" class="heading-link"><i class="fas fa-link"></i></a><a href="#判别分析" class="headerlink" title="判别分析"></a>判别分析</h2>
+      <blockquote>
+<p>可简单理解为 有监督</p>
+</blockquote>
+<figure class="highlight matlab"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">train=[</span><br><span class="line">... ... ... ...</span><br><span class="line">... ... ... ...</span><br><span class="line">... ... ... ...];</span><br><span class="line">group=[... ...]&#x27;;</span><br><span class="line">sample=[</span><br><span class="line">... ... ... ...</span><br><span class="line">... ... ... ...];</span><br><span class="line">[class,err]=classify(sample,training,group,<span class="string">&#x27;linear&#x27;</span>)        <span class="comment">%线性判别法分类</span></span><br><span class="line">[class,err]=classify(sample,training,group,<span class="string">&#x27;mahalanobis&#x27;</span>)   <span class="comment">%使用马氏距离判别法分类</span></span><br><span class="line">[class,err]=classify(sample,training,group,<span class="string">&#x27;quadratic&#x27;</span>)     <span class="comment">%使用二次判别法分类</span></span><br></pre></td></tr></table></div></figure>
+
+<p><strong>输入：</strong></p>
+<ul>
+<li>train和sample矩阵分别为 训练样本数据 和 预测样本数据</li>
+<li>group为 train中每行数据的类别</li>
+</ul>
+<p><strong>输出：</strong></p>
+<ul>
+<li>class：输出样本数据的类别</li>
+<li>err：出错概率</li>
+</ul>
+
+        <h2 id="主成分分析">
+          <a href="#主成分分析" class="heading-link"><i class="fas fa-link"></i></a><a href="#主成分分析" class="headerlink" title="主成分分析"></a>主成分分析</h2>
+      <blockquote>
+<p>用于选取变量，并做模型分析</p>
+</blockquote>
+<figure class="highlight matlab"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%9.7节 考试成绩原始程序</span></span><br><span class="line"></span><br><span class="line">[CJ,textdata]=xlsread(<span class="string">&#x27;数据文件9-4 学生考试成绩.xlsx&#x27;</span>,<span class="number">1</span>); <span class="comment">%读取Excel数据</span></span><br><span class="line">X=CJ(:,<span class="number">1</span>:<span class="keyword">end</span>);    <span class="comment">%读取成绩数据</span></span><br><span class="line">M=<span class="built_in">mean</span>(X);        <span class="comment">%计算均值向量</span></span><br><span class="line">Co=cov(X);        <span class="comment">%计算协方差矩阵</span></span><br><span class="line">r=corrcoef(X);    <span class="comment">%计算相关系数矩阵</span></span><br><span class="line">[COEFF,SCORE,latent,tsquare]=pca(X)    <span class="comment">%主成分分析</span></span><br><span class="line">percent_explained = <span class="number">100</span>*latent/sum(latent)  <span class="comment">%计算主成分解释比例</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%%</span></span><br><span class="line"><span class="built_in">figure</span>(<span class="number">2</span>);</span><br><span class="line">pareto(percent_explained)     <span class="comment">%画图2</span></span><br><span class="line">xlabel(<span class="string">&#x27;主成分&#x27;</span>)</span><br><span class="line">ylabel(<span class="string">&#x27;方差解释 (%)&#x27;</span>)</span><br><span class="line"><span class="comment">%%</span></span><br><span class="line">result(<span class="number">1</span>,:)=&#123;<span class="string">&#x27;特征值&#x27;</span>,<span class="string">&#x27;贡献率&#x27;</span>,<span class="string">&#x27;累积贡献率&#x27;</span>&#125;;</span><br><span class="line">result(<span class="number">2</span>:<span class="number">7</span>,<span class="number">1</span>)=<span class="built_in">num2cell</span>(latent)</span><br><span class="line">result(<span class="number">2</span>:<span class="number">7</span>,<span class="number">2</span>:<span class="number">3</span>)=<span class="built_in">num2cell</span>([percent_explained,cumsum(percent_explained)])<span class="comment">%输出表2</span></span><br><span class="line"><span class="comment">%%</span></span><br><span class="line">stnum=textdata(<span class="number">2</span>:<span class="keyword">end</span>,<span class="number">1</span>); <span class="comment">%提取学生编号</span></span><br><span class="line">sumX=sum(X,<span class="number">2</span>);           <span class="comment">%计算总分</span></span><br><span class="line">result1=cell(<span class="number">53</span>,<span class="number">4</span>);</span><br><span class="line">result1(<span class="number">1</span>,:)=&#123;<span class="string">&#x27;学生序号&#x27;</span>,<span class="string">&#x27;总分&#x27;</span>,<span class="string">&#x27;第一主成分得分y1&#x27;</span>,<span class="string">&#x27;第二主成分得分y2&#x27;</span>&#125;;</span><br><span class="line">result1(<span class="number">2</span>:<span class="keyword">end</span>,<span class="number">1</span>)=stnum;</span><br><span class="line">result1(<span class="number">2</span>:<span class="keyword">end</span>,<span class="number">2</span>:<span class="keyword">end</span>)=<span class="built_in">num2cell</span>([sumX,SCORE(:,<span class="number">1</span>:<span class="number">2</span>)]) <span class="comment">%输出表3</span></span><br><span class="line"><span class="comment">%%</span></span><br><span class="line"><span class="built_in">figure</span>(<span class="number">3</span>); <span class="comment">%前2个主成分的得分散点图3</span></span><br><span class="line"><span class="built_in">plot</span>(SCORE(:,<span class="number">1</span>),SCORE(:,<span class="number">2</span>),<span class="string">&#x27;ko&#x27;</span>);</span><br><span class="line">xlabel(<span class="string">&#x27;第一主成分&#x27;</span>);</span><br><span class="line">ylabel(<span class="string">&#x27;第二主成分&#x27;</span>);</span><br><span class="line">gname(stnum)   <span class="comment">%交互式标注学生序号</span></span><br></pre></td></tr></table></div></figure>
+
+<ul>
+<li>主要代码就前7行，根据主成分解释比例percent_explained的帕累托图选取主成分，得分在score矩阵中</li>
+<li>gname可交互式标注序号</li>
+</ul>
+<p>因子分析：（可以不用）</p>
+<figure class="highlight matlab"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%%</span></span><br><span class="line">[v,e]=eig(r)   <span class="comment">% 相关系数矩阵的特征向量与特征根e</span></span><br><span class="line">[lambda,<span class="built_in">psi</span>,T,stats,F] = factoran(X,<span class="number">2</span>)  <span class="comment">%因子分析m=2</span></span><br><span class="line"><span class="comment">%%</span></span><br><span class="line">result0=<span class="built_in">num2cell</span>([lambda,<span class="built_in">psi</span>])</span><br><span class="line">head=&#123;<span class="string">&#x27;变量&#x27;</span>,<span class="string">&#x27;因子f1&#x27;</span>,<span class="string">&#x27;因子f2&#x27;</span>,<span class="string">&#x27;特殊方差&#x27;</span>&#125;;</span><br><span class="line">varname=&#123;<span class="string">&#x27;数学分析&#x27;</span>,<span class="string">&#x27;高等代数&#x27;</span>,<span class="string">&#x27;概率论&#x27;</span>,<span class="string">&#x27;微分几何&#x27;</span>,<span class="string">&#x27;抽象代数&#x27;</span>,<span class="string">&#x27;数值分析&#x27;</span>&#125;&#x27; ;</span><br><span class="line">result2=[head;varname,result0]   <span class="comment">%输出表4</span></span><br><span class="line"><span class="comment">%%</span></span><br><span class="line">result3=cell(<span class="number">53</span>,<span class="number">4</span>);</span><br><span class="line">result3(<span class="number">1</span>,:)=&#123;<span class="string">&#x27;学生序号&#x27;</span>,<span class="string">&#x27;总分&#x27;</span>,<span class="string">&#x27;因子f1得分&#x27;</span>,<span class="string">&#x27;因子f2得分&#x27;</span>&#125;;</span><br><span class="line">result3(<span class="number">2</span>:<span class="keyword">end</span>,<span class="number">1</span>)=stnum;</span><br><span class="line">result3(<span class="number">2</span>:<span class="keyword">end</span>,<span class="number">2</span>:<span class="keyword">end</span>)=<span class="built_in">num2cell</span>([sumX,F(:,<span class="number">1</span>:<span class="number">2</span>)])  <span class="comment">%输出表5</span></span><br><span class="line"><span class="comment">%%</span></span><br><span class="line"><span class="built_in">figure</span>(<span class="number">4</span>);<span class="comment">%画因子得分散点图4</span></span><br><span class="line"><span class="built_in">plot</span>(F(:,<span class="number">1</span>),F(:,<span class="number">2</span>),<span class="string">&#x27;ro&#x27;</span>);</span><br><span class="line">xlabel(<span class="string">&#x27;基础课因子得分&#x27;</span>);</span><br><span class="line">ylabel(<span class="string">&#x27;开闭卷因子得分&#x27;</span>);</span><br><span class="line">gname(stnum)   <span class="comment">%交互式标注学生序号</span></span><br><span class="line">Fy=(<span class="number">3.7099</span>*F(:,<span class="number">1</span>)+<span class="number">1.2604</span>*F(:,<span class="number">2</span>))/<span class="number">4.9703</span>  <span class="comment">%计算表6中因子综合得分</span></span><br></pre></td></tr></table></div></figure>
+
+<hr>
+<blockquote>
+<p>9.5 时间序列分析</p>
+</blockquote>
+<p>确定性趋势求解就是回归，自己确定函数形式，然后回归</p>
+<p>随机性趋势用的不多，详见P258</p>
+<hr>
+
+        <h1 id="模糊综合评价">
+          <a href="#模糊综合评价" class="heading-link"><i class="fas fa-link"></i></a><a href="#模糊综合评价" class="headerlink" title="模糊综合评价"></a>模糊综合评价</h1>
+      
+        <h2 id="权重确定方法">
+          <a href="#权重确定方法" class="heading-link"><i class="fas fa-link"></i></a><a href="#权重确定方法" class="headerlink" title="权重确定方法"></a>权重确定方法</h2>
+      <p>层次分析法</p>
+<ul>
+<li>主要还是对已有数据的分析，如P276中例子所述，需要先给出各个因素的判别矩阵</li>
+</ul>
+<p>德尔菲法</p>
+<p>变异系数法</p>
+<p>均方差法</p>
+<p>参考性不大，主要是理解思想</p>
+
+        <h2 id="模糊综合评价方法">
+          <a href="#模糊综合评价方法" class="heading-link"><i class="fas fa-link"></i></a><a href="#模糊综合评价方法" class="headerlink" title="模糊综合评价方法"></a>模糊综合评价方法</h2>
+      <p>基本上用不着编程，需要已知权重</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://yuchen-zeta.github.io/tags/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/">数学建模</a></span></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2021/06/25/SVM-Spam-Classification/"><span class="paginator-prev__text">Spam-Classification</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%9F%E8%AE%A1%E5%88%86%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">
+          统计分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90"><span class="toc-number">1.1.</span> <span class="toc-text">
+          回归分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E5%85%83%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92-regress"><span class="toc-number">1.1.1.</span> <span class="toc-text">
+          多元线性回归 regress</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E5%85%83%E4%BA%8C%E9%A1%B9%E5%BC%8F%E5%9B%9E%E5%BD%92-rstool"><span class="toc-number">1.1.2.</span> <span class="toc-text">
+          多元二项式回归 rstool</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92-nlinfit"><span class="toc-number">1.1.3.</span> <span class="toc-text">
+          非线性回归 nlinfit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%90%E6%AD%A5%E5%9B%9E%E5%BD%92-stepwise"><span class="toc-number">1.1.4.</span> <span class="toc-text">
+          逐步回归 stepwise</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%9A%E7%B1%BB%E5%88%86%E6%9E%90"><span class="toc-number">1.2.</span> <span class="toc-text">
+          聚类分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A4%E5%88%AB%E5%88%86%E6%9E%90"><span class="toc-number">1.3.</span> <span class="toc-text">
+          判别分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90"><span class="toc-number">1.4.</span> <span class="toc-text">
+          主成分分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%A1%E7%B3%8A%E7%BB%BC%E5%90%88%E8%AF%84%E4%BB%B7"><span class="toc-number">2.</span> <span class="toc-text">
+          模糊综合评价</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%83%E9%87%8D%E7%A1%AE%E5%AE%9A%E6%96%B9%E6%B3%95"><span class="toc-number">2.1.</span> <span class="toc-text">
+          权重确定方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E7%B3%8A%E7%BB%BC%E5%90%88%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95"><span class="toc-number">2.2.</span> <span class="toc-text">
+          模糊综合评价方法</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/blog-logo.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">羽尘</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/yuchen-zeta/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2058149863&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Yuchen</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-space-shuttle"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>
