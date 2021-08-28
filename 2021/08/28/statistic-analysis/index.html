@@ -1,9 +1,9 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/sharingan.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/sharingan.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="12345zscore();    % 标准化函数，对每一列进行，(x-均值)&#x2F;标准差diag();      % 取矩阵对角元素成新矩阵cumsum();    % 向量的累积和，矩阵中每列的累积和normplot();  % 分析数据是否服从正态分布，散点越贴近斜率为1 的曲线越好var();       % 求方差                       统计分析">
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/sharingan.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/sharingan.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="12345zscore();    % 标准化函数，对每一列进行，(x-均值)&#x2F;标准差diag();      % 取矩阵对角元素成新矩阵cumsum();    % 向量的累积和，矩阵中每列的累积和normplot();  % 分析数据是否服从正态分布，散点越贴近斜率为1 的曲线越好var();       % 求方差">
 <meta property="og:type" content="article">
 <meta property="og:title" content="notebook">
 <meta property="og:url" content="https://yuchen-zeta.github.io/2021/08/28/statistic-analysis/index.html">
 <meta property="og:site_name" content="Yuchen&#39;s Blog">
-<meta property="og:description" content="12345zscore();    % 标准化函数，对每一列进行，(x-均值)&#x2F;标准差diag();      % 取矩阵对角元素成新矩阵cumsum();    % 向量的累积和，矩阵中每列的累积和normplot();  % 分析数据是否服从正态分布，散点越贴近斜率为1 的曲线越好var();       % 求方差                       统计分析">
+<meta property="og:description" content="12345zscore();    % 标准化函数，对每一列进行，(x-均值)&#x2F;标准差diag();      % 取矩阵对角元素成新矩阵cumsum();    % 向量的累积和，矩阵中每列的累积和normplot();  % 分析数据是否服从正态分布，散点越贴近斜率为1 的曲线越好var();       % 求方差">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-08-27T16:00:00.000Z">
 <meta property="article:modified_time" content="2021-08-27T16:00:00.000Z">
@@ -37,6 +37,8 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
 <figure class="highlight matlab"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">zscore();    <span class="comment">% 标准化函数，对每一列进行，(x-均值)/标准差</span></span><br><span class="line"><span class="built_in">diag</span>();      <span class="comment">% 取矩阵对角元素成新矩阵</span></span><br><span class="line">cumsum();    <span class="comment">% 向量的累积和，矩阵中每列的累积和</span></span><br><span class="line">normplot();  <span class="comment">% 分析数据是否服从正态分布，散点越贴近斜率为1 的曲线越好</span></span><br><span class="line">var();       <span class="comment">% 求方差</span></span><br></pre></td></tr></table></div></figure>
 
 <hr>
+<span id="more"></span>
+
 
         <h1 id="统计分析">
           <a href="#统计分析" class="heading-link"><i class="fas fa-link"></i></a><a href="#统计分析" class="headerlink" title="统计分析"></a>统计分析</h1>
@@ -46,8 +48,6 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></he
       <blockquote>
 <p>回归分析是处理变量之间<strong>相关关系</strong>的数学方法</p>
 </blockquote>
-<span id="more"></span>
-
 
         <h3 id="多元线性回归-regress">
           <a href="#多元线性回归-regress" class="heading-link"><i class="fas fa-link"></i></a><a href="#多元线性回归-regress" class="headerlink" title="多元线性回归 regress"></a>多元线性回归 regress</h3>
