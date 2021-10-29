@@ -1,0 +1,663 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/sharingan.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/sharingan.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="物理层的基本概念         物理层考虑的是怎样才能在连接各种计算机的传输媒体上传输数据比特流。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络-第二章-物理层">
+<meta property="og:url" content="https://yuchen-zeta.github.io/2021/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E7%89%A9%E7%90%86%E5%B1%82/index.html">
+<meta property="og:site_name" content="Yuchen&#39;s Blog">
+<meta property="og:description" content="物理层的基本概念         物理层考虑的是怎样才能在连接各种计算机的传输媒体上传输数据比特流。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(1).png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(2).png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(3).png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(4).png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(5).png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(6).png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(7).png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(8).png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(9).png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(10).png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(11).png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(12).png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(13).png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(14).png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(15).png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(16).png">
+<meta property="article:published_time" content="2021-09-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-09-29T16:00:00.000Z">
+<meta property="article:author" content="Yuchen">
+<meta property="article:tag" content="计算机网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(1).png"><title>计算机网络-第二章-物理层 | Yuchen's Blog</title><link ref="canonical" href="https://yuchen-zeta.github.io/2021/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E7%89%A9%E7%90%86%E5%B1%82/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-feather-alt"></i></span><span class="header-nav-menu-item__text">文章</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/archives/"><span class="header-nav-submenu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-submenu-item__text">归档</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/"><span class="header-nav-submenu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-submenu-item__text">分类</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/tags/"><span class="header-nav-submenu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-submenu-item__text">标签</span></a></div></div></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Yuchen's Blog</div><div class="header-banner-info__subtitle">受尽苦难而不厌，此乃修罗之道。——索隆</div></div><div class="header-banner-arrow"><div class="header-banner-arrow__icon"><i class="fas fa-angle-down"></i></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">计算机网络-第二章-物理层</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-09-30</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2021-09-30</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">4.2k</span></span></div></header><div class="post-body">
+        <h1 id="物理层的基本概念">
+          <a href="#物理层的基本概念" class="heading-link"><i class="fas fa-link"></i></a><a href="#物理层的基本概念" class="headerlink" title="物理层的基本概念"></a>物理层的基本概念</h1>
+      <img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(1).png" style="zoom:80%;">
+
+<p>物理层考虑的是怎样才能在连接各种计算机的传输媒体上<strong>传输数据比特流</strong>。</p>
+<span id="more"></span>
+<p>物理层为数据链路层屏蔽了各种传输媒体的差异，使数据链路层只需要考虑如何完成本层的协议和服务，而不必考虑网络具体的传输媒体是什么。</p>
+<p>物理层协议的主要任务：</p>
+<ul>
+<li><strong>机械特性</strong>：指明接口所用接线器的形状和尺寸，引脚数目和排列、固定和锁定装置；</li>
+<li><strong>电气特性</strong>：指明在接口电缆的各条线上出现的电压的范围；</li>
+<li><strong>功能特性</strong>：指明某条线.上出现的某一电平的电压表示何种意义；</li>
+<li><strong>过程特性</strong>：指明对于不同功能的各种可能事件的出现顺序。</li>
+</ul>
+
+        <h1 id="物理层下面的传输媒体">
+          <a href="#物理层下面的传输媒体" class="heading-link"><i class="fas fa-link"></i></a><a href="#物理层下面的传输媒体" class="headerlink" title="物理层下面的传输媒体"></a>物理层下面的传输媒体</h1>
+      <p><strong>传输媒体</strong>也称为传输介质或传输媒介，就是数据传输系统中在发送器和接收器之间的物理通路。</p>
+<p><strong>传输媒体</strong>可分为两大类，即<strong>导引型传输媒体</strong>和<strong>非导引型传输媒体。</strong></p>
+<blockquote>
+<p>传输媒体不属于计算机网络体系结构的任何一层，如果非要将它添加到体系结构中，那只能将其放置到物理层之下。</p>
+</blockquote>
+
+        <h2 id="导引型传输媒体">
+          <a href="#导引型传输媒体" class="heading-link"><i class="fas fa-link"></i></a><a href="#导引型传输媒体" class="headerlink" title="导引型传输媒体"></a><strong>导引型传输媒体</strong></h2>
+      <p>在导引型传输媒体中，电磁波被导引沿着固体媒体传播。</p>
+<hr>
+<p><strong>同轴电缆：</strong></p>
+<img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(2).png" style="zoom: 67%;">
+
+<ul>
+<li>基带同轴电缆(50Ω)：数字传输，过去用于局域网</li>
+<li>宽带同轴电缆(75Ω)：模拟传输，目前主要用于有线电视</li>
+</ul>
+<p>同轴电缆价格较贵且布线不够灵活和方便，随着集线器的出现，在局域网领域基本上都是采用双绞线作为传输媒体。</p>
+<hr>
+<p><strong>双绞线：</strong></p>
+<p>用两根线绞合的作用在于：</p>
+<ul>
+<li>抵御部分来自外界的电磁波干扰</li>
+<li>减少相邻导线的电磁干扰</li>
+</ul>
+<img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(3).png" style="zoom:80%;">
+
+<img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(4).png" style="zoom:80%;">
+
+<hr>
+<p><strong>光纤：</strong></p>
+<img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(5).png" style="zoom: 67%;">
+
+<p>光纤的优点：</p>
+<ul>
+<li>通信容量大 (25000~ 30000GHz的带宽)；</li>
+<li>传输损耗小，远距离传输时更加经济；</li>
+<li>抗雷电和电磁干扰性能好。这在大电流脉冲干扰的环境下尤为重要；</li>
+<li>无串音干扰，保密性好，不易被窃听；</li>
+<li>体积小， 重量轻。</li>
+</ul>
+<p>光纤的缺点：</p>
+<ul>
+<li>割接需要专用设备。</li>
+</ul>
+<blockquote>
+<p>光纤的工作原理：光纤外层为低折射率的包层，内层为高折射率的纤芯，光线在纤芯中传输的方式就是不断地全反射。</p>
+</blockquote>
+<p><strong>多模光纤</strong></p>
+<ul>
+<li>可以存在多条不同角度入射的光线在一条光纤中传输。这种光纤就称为<strong>多模光纤</strong>。</li>
+</ul>
+<p><strong>单模光纤</strong></p>
+<ul>
+<li>若光纤的直径减小到只有一个光的波长，则光纤就像一根波导那样，它可使光线一直向前传播，而不会产生多次反射。这样的光纤称为<strong>单模光纤</strong>。</li>
+</ul>
+
+        <h2 id="非导引型传输媒体">
+          <a href="#非导引型传输媒体" class="heading-link"><i class="fas fa-link"></i></a><a href="#非导引型传输媒体" class="headerlink" title="非导引型传输媒体"></a><strong>非导引型传输媒体</strong></h2>
+      <p>非导引型传输媒体是指自由空间。</p>
+<img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(6).png" style="zoom:80%;">
+
+<img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(7).png" style="zoom:80%;">
+
+<img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(8).png" style="zoom:80%;">
+
+<p><strong>无线电波：</strong></p>
+<img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(9).png" style="zoom:80%;">
+
+<p><strong>微波：</strong></p>
+<img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(10).png" style="zoom:80%;">
+
+<p><strong>红外线：</strong></p>
+<p>在早期，计算机之间使用过红外线通信，其特点是可以实现点对点无线传输，但只能直线传输，中间不能有障碍物，传输距离短，传输速率比较低(4Mb/s~16Mb/s)。</p>
+<p>如今已经被淘汰，但在许多手机中仍能见到这个功能，一般可以用红外通信遥控电器等。</p>
+<hr>
+<p>扩展：这些频段的划分都由专门的<strong>无线电频谱管理机构</strong>来完成。</p>
+<ul>
+<li>中国:工业和信息化部无线电管理局(国家无线电办公室)</li>
+<li>美国:联邦通讯委员会FCC<br>ISM (Industrial, Scientific, Medical)频段  <img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(11).png" style="zoom:80%;"></li>
+</ul>
+
+        <h1 id="传输方式">
+          <a href="#传输方式" class="heading-link"><i class="fas fa-link"></i></a><a href="#传输方式" class="headerlink" title="传输方式"></a>传输方式</h1>
+      
+        <h2 id="串行传输与并行传输">
+          <a href="#串行传输与并行传输" class="heading-link"><i class="fas fa-link"></i></a><a href="#串行传输与并行传输" class="headerlink" title="串行传输与并行传输"></a>串行传输与并行传输</h2>
+      <p><strong>串行传输</strong>：</p>
+<ul>
+<li>数据是一个比特一个比特依次发送的，因此在发送端与接收端之间，只需要一条数据传输线路即可。</li>
+</ul>
+<p><strong>并行传输</strong>：</p>
+<ul>
+<li>一次发送n个比特，因此，在发送端和接收端之间需要有n条传输线路；</li>
+<li>并行传输的优点是比串行传输的速度n倍，但成本高。</li>
+</ul>
+<blockquote>
+<p>数据在传输线路上的传输采用是<strong>串行传输</strong>，计算机内部的数据传输常用<strong>并行传输。</strong></p>
+</blockquote>
+
+        <h2 id="同步传输与异步传输">
+          <a href="#同步传输与异步传输" class="heading-link"><i class="fas fa-link"></i></a><a href="#同步传输与异步传输" class="headerlink" title="同步传输与异步传输"></a>同步传输与异步传输</h2>
+      <img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(12).png" style="zoom:80%;">
+
+<p><strong>同步传输</strong>：</p>
+<ul>
+<li>数据块以稳定的比特流的形式传输，<strong>字节之间没有间隔</strong>；</li>
+<li>接收端在每个比特信号的<strong>中间时刻进行检测</strong>，以判别接收到的是比特0还是比特1</li>
+<li>由于不同设备的时钟频率存在一定差异，不可能做到完全相同，在传输大量数据的过程中，所产生的判别时刻的累计误差，会导致接收端对比特信号的判别错位，所以要<strong>使</strong>收发双发<strong>时钟保持同步。</strong></li>
+</ul>
+<p>收发双方时钟同步的方法：</p>
+<ul>
+<li>外同步：在收发双方之间添加一条单独的时钟信号线</li>
+<li>内同步：发送端将时钟同步信号编码到发送数据中一起传输(如曼彻斯特编码)</li>
+</ul>
+<hr>
+<img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(13).png" style="zoom:80%;">
+
+<p><strong>异步传输</strong>：</p>
+<ul>
+<li>以字节为独立的传输单位，字节之间的时间间隔不固定 (<strong>字节之间异步</strong>)；</li>
+<li>接收端仅在每个字节的起始处对<strong>字节内的比特实现同步</strong>，各比特的持续时间相同；</li>
+<li>通常在每个字节前后分别加上起始位和结束位。</li>
+</ul>
+
+        <h2 id="单工、半双工与全双工">
+          <a href="#单工、半双工与全双工" class="heading-link"><i class="fas fa-link"></i></a><a href="#单工、半双工与全双工" class="headerlink" title="单工、半双工与全双工"></a>单工、半双工与全双工</h2>
+      <p>在许多情况下，我们要使用“<strong>信道（channel）</strong>”这一名词。信道和电路并不等同。信道一般都是用来表示向某一个方向传送信息的媒体。因此，一条通信电路往往包含一条发送信道和一条接收信道。</p>
+<p>从通信的双方信息交互的方式来看，可以有以下三种基本方式：</p>
+<p><strong>单向通信</strong>：</p>
+<p>又称为<strong>单工通信</strong>，即只能有一个方向的通信而没有反方向的交互。<br>例子：无线电广播、有线电广播、电视广播。</p>
+<p><strong>双向交替通信</strong>：</p>
+<p>又称为<strong>半双工通信</strong>，即通信的双方可以发送信息，但不能双方同时发送（当然也就不能同时接收）。<br>例子：对讲机。</p>
+<p><strong>双向同时通信</strong>：</p>
+<p>又称为<strong>全双工通信</strong>，即通信的双发可以同时发送和接收信息。<br>例子：手机等。</p>
+<p>注：严格来说，传输媒体并不能和信道划等号，单向通信只需要一条信道，而双向交替通信或双向同时通信则需要两条信道（每个方向各一条），其中<strong>双向同时通信</strong>的传输效率最高（如果使用信道复用技术，一条传输媒体还可以包含多个信道）</p>
+
+        <h1 id="编码与调制">
+          <a href="#编码与调制" class="heading-link"><i class="fas fa-link"></i></a><a href="#编码与调制" class="headerlink" title="编码与调制"></a>编码与调制</h1>
+      <img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(14).png">
+
+
+        <h2 id="常用术语">
+          <a href="#常用术语" class="heading-link"><i class="fas fa-link"></i></a><a href="#常用术语" class="headerlink" title="常用术语"></a>常用术语</h2>
+      <ul>
+<li><strong>数据 (data)</strong> —— 运送消息的实体；</li>
+<li><strong>信号 (signal)</strong> —— 数据的电气的或电磁的表现；</li>
+<li><strong>模拟信号 (analogous signal)</strong> —— 代表消息的参数的取值是连续的；</li>
+<li><strong>数字信号 (digital signal)</strong> —— 代表消息的参数的取值是离散的；</li>
+<li><strong>码元 (code)</strong> —— 在使用时间域（或简称为时域）的波形表示数字信号时，代表不同离散数值的基本波形；</li>
+<li><strong>基带信号</strong>（即基本频带信号）—— 来自信源的信号；<br>像计算机输出的代表各种文字或图像文件的数据信号都属于基带信号。<ul>
+<li>基带信号往往包含有较多的低频成分，甚至有直流成分，而许多信道并不能传输这种低频分量或直流分量。因此必须对基带信号进行<strong>调制</strong>(modulation)</li>
+</ul>
+</li>
+</ul>
+<p>在计算机网络中，常见的是将<strong>数字基带信号</strong>通过编码或调制的方法在相应信道进行传输。</p>
+
+        <h2 id="常用编码">
+          <a href="#常用编码" class="heading-link"><i class="fas fa-link"></i></a><a href="#常用编码" class="headerlink" title="常用编码"></a>常用编码</h2>
+      <p><strong>不归零编码：</strong></p>
+<ul>
+<li>正电平表示比特1或0 | 负电平表示比特0或1</li>
+<li>所谓不归零编码，就是指在整个码元时间内，电平不会出现零电平。</li>
+</ul>
+<p><strong>实际比特1和比特0的表示要看现实怎么规定；</strong></p>
+<p>那么问题来了，多个1或多个0传输时，如何判断其比特数量？</p>
+<p>这就需要发送方的发送和接收方的接收做到严格的同步。</p>
+<ul>
+<li>用<strong>一根额外传输线来传输时钟信号</strong>，使发送方和接收方同步，接收方按时钟信号的节拍来逐个接收码元；</li>
+<li><strong>但是</strong>对于计算机网络，<strong>宁愿利用这根传输线传输数据信号</strong>，而不是传输时钟信号；</li>
+</ul>
+<p>由于不归零编码<strong>存在同步问题</strong>，因此计算机网络中的数据传输不采用这类编码！</p>
+<hr>
+<p><strong>归零编码：</strong></p>
+<ul>
+<li><strong>每个码元传输结束后信号都要“归零”</strong>，所以接收方只要在信号归零后进行采样即可，不需要单独的时钟信号。</li>
+<li>实际上，归零编码相当于把时钟信号用”归零”方式编码在了数据之内,这称为“自同步”信号。</li>
+<li>但是，归零编码中大部分的<strong>数据带宽</strong>，都用来传输“归零”而浪费掉了。</li>
+</ul>
+<p>所以归零编码虽然<strong>自同步</strong>，但是<strong>编码效率低</strong>。</p>
+<hr>
+<p><strong>曼彻斯特编码：</strong></p>
+<ul>
+<li>在每个码元时间的中间时刻，信号都会发生跳变</li>
+<li>负跳变表示比特1或0 | 正跳变表示比特0或1</li>
+<li>码元中间时刻的跳变即表示时钟，又表示数据</li>
+</ul>
+<p><strong>实际比特1和比特0的表示要看现实怎么规定</strong></p>
+<blockquote>
+<p>传统以太网(10Mb/s)使用的就是曼切斯特编码</p>
+</blockquote>
+<hr>
+<p><strong>差分曼彻斯特编码</strong></p>
+<ul>
+<li>在每个码元时间的中间时刻，信号都会发送跳变，但与曼彻斯特不同</li>
+<li><strong>跳变仅表示时钟，码元开始处电平是否变换表示数据</strong></li>
+<li>变化表示比特1或0 | 不变化表示比特0或1</li>
+</ul>
+<p><strong>实际比特1和比特0的表示要看现实怎么规定</strong></p>
+<p>相比之下比曼彻斯特编码变化少，更适合较高的传输速率</p>
+<hr>
+
+        <h2 id="调制">
+          <a href="#调制" class="heading-link"><i class="fas fa-link"></i></a><a href="#调制" class="headerlink" title="调制"></a>调制</h2>
+      <ul>
+<li>数字信号转换为模拟信号，在模拟信道中传输。<br>例如WiFi，采用补码键控CCK/直接序列扩频DSSS/正交频分复用OFDM等<strong>调制</strong>方式。</li>
+<li>模拟信号转换为另一种模拟信号，在模拟信道中传输。<br>例如，语音数据加载到模拟的载波信号中传输。频分复用FDM技术，充分利用带宽资源。</li>
+</ul>
+<p><strong>基本调制方法：</strong></p>
+<img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(15).png" style="zoom:80%;">
+
+<ul>
+<li><strong>调幅AM</strong>：所调制的信号由两种不同振幅的基本波形构成。每个基本波形只能表示1比特信息量。</li>
+<li><strong>调频FM</strong>：所调制的信号由两种不同频率的基本波形构成。每个基本波形只能表示1比特信息量。</li>
+<li><strong>调相PM</strong>：所调制的信号由两种不同初相位的基本波形构成。每个基本波形只能表示1比特信息量。</li>
+</ul>
+<p>注：使用基本调制方法，1个码元只能包含1个比特信息</p>
+<hr>
+<p><strong>混合调制：</strong></p>
+<p>为使码元能够表示更多信息，我们引入混合调制，切入点便是将振幅、频率和相位结合：</p>
+<ul>
+<li>因为频率和相位是相关的，即频率是相位随时间的变化率。所以一次只能调制频率和相位两个中的一个；</li>
+<li>然而相位和振幅不相关，可以将其结合起来一起调制，称为<strong>正交振幅调制QAM</strong></li>
+</ul>
+<p>举例：</p>
+<img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211030(16).png" style="zoom:80%;">
+
+<p>注：每个点代表一个码元，可将码元的极坐标角度看作相位，半径看作振幅。</p>
+
+        <h1 id="信道的极限容量">
+          <a href="#信道的极限容量" class="heading-link"><i class="fas fa-link"></i></a><a href="#信道的极限容量" class="headerlink" title="信道的极限容量"></a>信道的极限容量</h1>
+      <ul>
+<li>任何实际的信道都不是理想的，在传输信号时会产生各种失真以及带来多种干扰。</li>
+<li>码元传输的速率越高，或信号传输的距离越远，或噪声干扰越大，或传输媒体质量越差，在信道的输出端的波形的失真就越严重。</li>
+</ul>
+<hr>
+<p><strong>奈氏准则：在假定的理想条件下，为了避免码间串扰，码元传输速率是有上限的。</strong></p>
+<ul>
+<li>理想低通信道的最高码元传输速率= 2W Baud = 2W 码元/秒</li>
+<li>理想带通信道的最高码元传输速率= W Baud = W码元/秒<ul>
+<li>W:信道带宽(单位为Hz)，Baud:波特,即码元/秒</li>
+</ul>
+</li>
+<li>码元传输速率又称为波特率、调制速率、波形速率或符号速率。它与比特率有一定关系：<ul>
+<li>当1个码元只携带1比特的信息量时，则波特率(码元/秒)与比特率(比特/秒)在数值上是相等的；</li>
+<li>当1个码元携带n比特的信息量时，则波特率转换成比特率时，数值要乘以n</li>
+</ul>
+</li>
+<li>要提高信息传输速率(比特率)，就必须设法使每一个码元能携带更多个比特的信息量。这需要采用多元制。</li>
+<li>实际的信道所能传输的最高码元速率，要明显低于奈氏准则给出的这个上限数值。</li>
+</ul>
+<hr>
+<p><strong>香农公式：带宽受限且有高斯白噪声干扰的信道的极限信息传输速率。</strong></p>
+<p>$$<br>c=W\times \log_{2}{(1+\frac{S}{N})}<br>$$</p>
+<p>c：信道的极限信息传输速率(单位: b/s)</p>
+<p>W：信道带宽(单位: Hz)</p>
+<p>S：信道内所传信号的平均功率</p>
+<p>N：信道内的高斯噪声功率</p>
+<p>S/N：信噪比，使用分贝(dB) 作为度量单位，信噪比(dB) =10 x log(S/N) (dB)</p>
+<p>可见 信道带宽W 或 信噪比S/N 越大，信息的极限传输速率越高。</p>
+<p>在实际信道上能够达到的信息传输速率要比该公式的极限传输速率低不少。<br>这是因为在实际信道中，信号还要受到其他一些损伤，如各种脉冲干扰、信号在传输中的衰减和失真等，这些因素在香农公式中并未考虑。</p>
+<hr>
+<p>在信道带宽一定的情况下，根据奈氏准则和香农公式，要想提高信息的传输速率就必须采用<strong>多元制</strong>(更好的调制方法) 和 努力<strong>提高信道中的信噪比。</strong></p>
+<blockquote>
+<p>自从香农公式发表后，各种新的信号处理和调制方法就不断出现，其目的都是为了尽可能地接近香农公式给出的传输速率极限。</p>
+</blockquote>
+
+        <h1 id="信道复用技术">
+          <a href="#信道复用技术" class="heading-link"><i class="fas fa-link"></i></a><a href="#信道复用技术" class="headerlink" title="信道复用技术"></a>信道复用技术</h1>
+      <p>复用 (multiplexing) 是通信技术中的基本概念。它允许用户使用一个共享信道进行通信，降低成本，提高信道利用率。</p>
+<hr>
+<p><strong>频分复用 FDM (Frequency Division Multiplexing)</strong></p>
+<ul>
+<li>将整个带宽分为多份，用户在分配到一定的频带后，在通信过程中自始至终都占用这个频带；</li>
+<li><strong>频分复用</strong>的所有用户在同样的时间<strong>占用不同的带宽资源</strong>（请注意，这里的“带宽”是频率带宽而不是数据的发送速率）</li>
+</ul>
+<hr>
+<p><strong>时分复用TDM (Time Division Multiplexing)</strong></p>
+<ul>
+<li><strong>时分复用</strong>则是将时间划分为一段段等长的<strong>时分复用帧（TDM帧）</strong>。每一个时分复用的用户在每一个 TDM 帧中占用<strong>固定序号</strong>的时隙；</li>
+<li>每一个用户所占用的时隙<strong>周期性地出现</strong>（其周期就是TDM帧的长度）</li>
+<li>TDM 信号也称为<strong>等时</strong> (isochronous) 信号。</li>
+<li><strong>时分复用的所有用户在不同的时间占用同样的频带宽度。</strong></li>
+</ul>
+<blockquote>
+<p><strong>时分复用可能会造成线路资源的浪费：</strong></p>
+<p>使用时分复用系统传送计算机数据时，由于计算机数据的突发性质，用户对分配到的子信道的利用率一般是不高的。</p>
+</blockquote>
+<p>为此提出的改进方案是<strong>统计时分复用 STDM (Statistic TDM)</strong></p>
+<ul>
+<li>STDM帧<strong>不是固定分配</strong>时隙，而是<strong>按需动态地</strong>分配时隙。因此统计时分复用可以提高线路的利用率。</li>
+</ul>
+<hr>
+<p><strong>波分复用 WDM(Wavelength Division Multiplexing)</strong></p>
+<ul>
+<li>波分复用就是光的频分复用。</li>
+<li>使用一根光纤来同时传输多个光载波信号。</li>
+</ul>
+<hr>
+<p><strong>码分复用 CDM(Code Division Multiplexing)</strong></p>
+<ul>
+<li>常用的名词是<strong>码分多址</strong> CDMA (Code Division Multiple Access)。</li>
+<li>各用户使用经过特殊挑选的不同码型，因此彼此不会造成干扰。</li>
+<li>这种系统发送的信号有很强的抗干扰能力，其频谱类似于白噪声，不易被敌人发现。</li>
+</ul>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://yuchen-zeta.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></span></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2021/09/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%AC%AC%E4%B8%80%E7%AB%A0-%E6%A6%82%E8%BF%B0/"><span class="paginator-prev__text">计算机网络-第一章-概述</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%89%A9%E7%90%86%E5%B1%82%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">
+          物理层的基本概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%89%A9%E7%90%86%E5%B1%82%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BC%A0%E8%BE%93%E5%AA%92%E4%BD%93"><span class="toc-number">2.</span> <span class="toc-text">
+          物理层下面的传输媒体</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BC%E5%BC%95%E5%9E%8B%E4%BC%A0%E8%BE%93%E5%AA%92%E4%BD%93"><span class="toc-number">2.1.</span> <span class="toc-text">
+          导引型传输媒体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%9E%E5%AF%BC%E5%BC%95%E5%9E%8B%E4%BC%A0%E8%BE%93%E5%AA%92%E4%BD%93"><span class="toc-number">2.2.</span> <span class="toc-text">
+          非导引型传输媒体</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E6%96%B9%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">
+          传输方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%B2%E8%A1%8C%E4%BC%A0%E8%BE%93%E4%B8%8E%E5%B9%B6%E8%A1%8C%E4%BC%A0%E8%BE%93"><span class="toc-number">3.1.</span> <span class="toc-text">
+          串行传输与并行传输</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E4%BC%A0%E8%BE%93%E4%B8%8E%E5%BC%82%E6%AD%A5%E4%BC%A0%E8%BE%93"><span class="toc-number">3.2.</span> <span class="toc-text">
+          同步传输与异步传输</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E5%B7%A5%E3%80%81%E5%8D%8A%E5%8F%8C%E5%B7%A5%E4%B8%8E%E5%85%A8%E5%8F%8C%E5%B7%A5"><span class="toc-number">3.3.</span> <span class="toc-text">
+          单工、半双工与全双工</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BC%96%E7%A0%81%E4%B8%8E%E8%B0%83%E5%88%B6"><span class="toc-number">4.</span> <span class="toc-text">
+          编码与调制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%9C%AF%E8%AF%AD"><span class="toc-number">4.1.</span> <span class="toc-text">
+          常用术语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E7%BC%96%E7%A0%81"><span class="toc-number">4.2.</span> <span class="toc-text">
+          常用编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E5%88%B6"><span class="toc-number">4.3.</span> <span class="toc-text">
+          调制</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%A1%E9%81%93%E7%9A%84%E6%9E%81%E9%99%90%E5%AE%B9%E9%87%8F"><span class="toc-number">5.</span> <span class="toc-text">
+          信道的极限容量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%A1%E9%81%93%E5%A4%8D%E7%94%A8%E6%8A%80%E6%9C%AF"><span class="toc-number">6.</span> <span class="toc-text">
+          信道复用技术</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/blog-logo.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">羽尘</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/yuchen-zeta/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2058149863&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Yuchen</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-space-shuttle"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>
