@@ -1,0 +1,648 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/sharingan.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/sharingan.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="操作系统的概念、功能和目标                           概念       操作系统(Operating System，OS)是指 控制和管理整个计算机系统的硬件和软件资源，并合理地组织调度计算机的工作和资源的分配，为用户和其他软件提供方便的接口和环境 的程序集合。它是计算机系统中最基本的系统软件。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统-第一章-概述">
+<meta property="og:url" content="https://yuchen-zeta.github.io/2021/11/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%AC%AC%E4%B8%80%E7%AB%A0-%E6%A6%82%E8%BF%B0/index.html">
+<meta property="og:site_name" content="Yuchen&#39;s Blog">
+<meta property="og:description" content="操作系统的概念、功能和目标                           概念       操作系统(Operating System，OS)是指 控制和管理整个计算机系统的硬件和软件资源，并合理地组织调度计算机的工作和资源的分配，为用户和其他软件提供方便的接口和环境 的程序集合。它是计算机系统中最基本的系统软件。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211101(1).png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211101(2).png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211101(3).png">
+<meta property="article:published_time" content="2021-10-31T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-10-31T16:00:00.000Z">
+<meta property="article:author" content="Yuchen">
+<meta property="article:tag" content="操作系统">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211101(1).png"><title>操作系统-第一章-概述 | Yuchen's Blog</title><link ref="canonical" href="https://yuchen-zeta.github.io/2021/11/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E7%AC%AC%E4%B8%80%E7%AB%A0-%E6%A6%82%E8%BF%B0/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-feather-alt"></i></span><span class="header-nav-menu-item__text">文章</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/archives/"><span class="header-nav-submenu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-submenu-item__text">归档</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/"><span class="header-nav-submenu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-submenu-item__text">分类</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/tags/"><span class="header-nav-submenu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-submenu-item__text">标签</span></a></div></div></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Yuchen's Blog</div><div class="header-banner-info__subtitle">受尽苦难而不厌，此乃修罗之道。——索隆</div></div><div class="header-banner-arrow"><div class="header-banner-arrow__icon"><i class="fas fa-angle-down"></i></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">操作系统-第一章-概述</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-11-01</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2021-11-01</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">3.6k</span></span></div></header><div class="post-body">
+        <h1 id="操作系统的概念、功能和目标">
+          <a href="#操作系统的概念、功能和目标" class="heading-link"><i class="fas fa-link"></i></a><a href="#操作系统的概念、功能和目标" class="headerlink" title="操作系统的概念、功能和目标"></a>操作系统的概念、功能和目标</h1>
+      
+        <h2 id="概念">
+          <a href="#概念" class="heading-link"><i class="fas fa-link"></i></a><a href="#概念" class="headerlink" title="概念"></a>概念</h2>
+      <p>操作系统(Operating System，OS)是指 控制和<strong>管理</strong>整个计算机系统的<strong>硬件和软件</strong>资源，并合理地组织调度计算机的工作和资源的分配，<strong>为用户和其他软件提供方便的接口和环境</strong> 的程序集合。它是计算机系统中最基本的<strong>系统软件</strong>。</p>
+<span id="more"></span>
+
+
+        <h2 id="功能和目标">
+          <a href="#功能和目标" class="heading-link"><i class="fas fa-link"></i></a><a href="#功能和目标" class="headerlink" title="功能和目标"></a>功能和目标</h2>
+      <p>①操作系统是系统资源的管理者</p>
+<p>②向上提供方便易用的服务</p>
+<p>③是最接近硬件的一层软件</p>
+<img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211101(1).png" style="zoom:67%;">
+
+<hr>
+<p><strong>①操作系统是系统资源的管理者（管理功能）</strong></p>
+<p>作为系统资源的管理者，其目标是安全、高效，提供的功能有：</p>
+<ul>
+<li>处理机管理<ul>
+<li>管理处理机的分配与运行，解决冲突问题，可以理解为对进程的管理</li>
+<li>进程管理：进程控制、进程同步、进程通信、死锁处理、处理机调度</li>
+</ul>
+</li>
+<li>存储器管理<ul>
+<li>为了提高多道程序运行效率，方便用户使用</li>
+<li>内存分配、地址映射、内存保护、共享和内存扩充</li>
+</ul>
+</li>
+<li>文件管理<ul>
+<li>操作系统负责管理文件的系统称为文件系统</li>
+<li>文件存储空间的管理、目录管理、文件读写管理和保护</li>
+</ul>
+</li>
+<li>设备管理<ul>
+<li>完成用户的IO请求，方便用户使用设备，提高设备的利用率</li>
+<li>缓冲管理、设备分配、设备处理、虚拟设备</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>②向上提供方便易用的服务（接口功能）</strong></p>
+<p>操作系统为用户和软件提供服务，通过提供接口来完成：</p>
+<ul>
+<li>命令接口<ul>
+<li>联机控制方式：交互式命令接口，适用于分时或者实时系统，就像人与机器对话一样。(用户说一句，系统跟着做一句)</li>
+<li>脱机控制方式：批处理命令接口，提交一组作业，系统进行处理，用户不能干预作业的运行。(用户说一堆，系统跟着做一堆)</li>
+</ul>
+</li>
+<li>程序接口<ul>
+<li>由一组系统调用命令组成(也称作<strong>系统调用</strong>或者<strong>广义指令</strong>)</li>
+<li>可以在程序中进行<strong>系统调用</strong>来使用程序接口。普通用户不能直接使用程序接口，只能通过程序代码间接使用。</li>
+</ul>
+</li>
+</ul>
+<p>此外还有GUI图形用户界面，可以说 命令接口和GUI是直接给用户使用的，而程序接口是给软件或是程序员使用的。</p>
+<hr>
+<p><strong>③是最接近硬件的一层软件（扩充机器）</strong></p>
+<p>作为最接近硬件的一层软件，操作系统需要实现<strong>对硬件机器的扩展</strong>，将CPU、内存、磁盘、显示器、键盘等硬件合理地组织起来，让各种硬件能够相互协调配合，实现更多更复杂的功能。</p>
+<ul>
+<li>通常把覆盖了软件的机器成为扩充机器，又称之为虚拟机</li>
+</ul>
+<hr>
+
+        <h1 id="操作系统的特征">
+          <a href="#操作系统的特征" class="heading-link"><i class="fas fa-link"></i></a><a href="#操作系统的特征" class="headerlink" title="操作系统的特征"></a>操作系统的特征</h1>
+      <blockquote>
+<p>四个基本特征：<strong>并发</strong>、<strong>共享</strong>、虚拟、异步</p>
+</blockquote>
+
+        <h2 id="并发">
+          <a href="#并发" class="heading-link"><i class="fas fa-link"></i></a><a href="#并发" class="headerlink" title="并发"></a>并发</h2>
+      <blockquote>
+<p>并发：指两个或者多个事件在同一时间间隔内发生。<br>并行：指两个或者多个事件在同一时刻同时发生。</p>
+</blockquote>
+<ul>
+<li>并发使得系统具有处理和调度多个程序同时执行的能力</li>
+<li>操作系统的并发是通过分时实现的</li>
+</ul>
+<blockquote>
+<p>操作系统就是伴随着“多道程序技术”出现而出现的。因此，操作系统和程序并发是一起诞生的。</p>
+</blockquote>
+<p>重要考点：</p>
+<ul>
+<li>单核CPU同一时刻只能执行一个程序，各个程序只能<strong>并发</strong>地执行<ul>
+<li>对于单处理机来说，宏观上程序是并发的，微观上程序是交替执行的</li>
+</ul>
+</li>
+<li>多核CPU同一时刻可以同时执行多个程序，多个程序可以<strong>并行</strong>地执行</li>
+</ul>
+
+        <h2 id="共享">
+          <a href="#共享" class="heading-link"><i class="fas fa-link"></i></a><a href="#共享" class="headerlink" title="共享"></a>共享</h2>
+      <blockquote>
+<p>共享：即资源共享，是指系统中的资源可供内存中多个并发执行的进程共同使用。</p>
+</blockquote>
+<p>有两种资源共享方式：</p>
+<ul>
+<li>互斥共享方式<ul>
+<li>一个时间段只允许一个进程对资源进行访问，例如打印机，磁带</li>
+<li>这种资源称作：<strong>临界资源</strong>或者独占资源</li>
+</ul>
+</li>
+<li>同时访问方式<ul>
+<li>一个时间段内允许多个进程对资源进行访问，例如磁盘资源</li>
+</ul>
+</li>
+</ul>
+<p><strong>并发和共享的关系(<strong>互为存在条件</strong>)</strong></p>
+<p>并发性指计算机系统中同时存在着多个运行着的程序。</p>
+<p>共享性是指系统中的资源可供内存中多个并发执行的进程共同使用。</p>
+<p>如果失去并发性，则系统中只有一个程序正在运行，则共享性失去存在的意义；</p>
+<p>如果失去共享性，则两个程序不能同时访问硬盘资源，就无法实现同时发送文件，也就无法并发。</p>
+
+        <h2 id="虚拟">
+          <a href="#虚拟" class="heading-link"><i class="fas fa-link"></i></a><a href="#虚拟" class="headerlink" title="虚拟"></a>虚拟</h2>
+      <blockquote>
+<p>虚拟：指把一个物理上的实体变为若干个逻辑上的对应物。物理实体是实际存在的，而逻辑上对应物是用户感受到的。</p>
+</blockquote>
+<p>一个物理上的实体变为若干逻辑上的对应物，这种技术也被称为虚拟技术，可分为：</p>
+<ul>
+<li>时分复用技术<ul>
+<li>如虚拟处理器：采用多道程序并发的方式，让每个终端用户感觉到有多个处理器</li>
+</ul>
+</li>
+<li>空分复用技术<ul>
+<li>如虚拟存储器：将物理存储变为虚拟存储器，逻辑上扩充存储器用</li>
+</ul>
+</li>
+</ul>
+<p><strong>并发和虚拟的关系</strong></p>
+<p>如果失去了并发性，则一个时间段内系统中只需运行一道程序，那么就失去了实现虚拟性的意义了。因此，没有并发性，就谈不上虚拟性。</p>
+
+        <h2 id="异步">
+          <a href="#异步" class="heading-link"><i class="fas fa-link"></i></a><a href="#异步" class="headerlink" title="异步"></a>异步</h2>
+      <blockquote>
+<p>异步：在多道程序环境下，允许多个程序并发执行，但由于资源有限，进程的执行不是一贯到底的，多道程序走走停停，进程以不可预知的速度向前进</p>
+</blockquote>
+<p><strong>并发和异步的关系</strong></p>
+<p>只有系统拥有并发性，才有可能导致异步性。</p>
+<hr>
+<p>小结：并发和共享互为存在条件，没有并发和共享，就谈不上虚拟和异步，因此<strong>并发</strong>和<strong>共享</strong>是操作系统的两个最基本的特征</p>
+<hr>
+
+        <h1 id="操作系统的发展与分类">
+          <a href="#操作系统的发展与分类" class="heading-link"><i class="fas fa-link"></i></a><a href="#操作系统的发展与分类" class="headerlink" title="操作系统的发展与分类"></a>操作系统的发展与分类</h1>
+      <hr>
+<ol>
+<li><strong>手工操作阶段</strong></li>
+</ol>
+<p>程序的装入、运行、结果的输出都需要人为的干预</p>
+<p>缺点：资源利用率低、CPU利用不充分、<strong>人机速度矛盾</strong></p>
+<hr>
+<ol>
+<li><strong>批处理阶段</strong></li>
+</ol>
+<blockquote>
+<p>为了解决人机矛盾以及CPU和I/O设备之间速度不匹配的矛盾</p>
+</blockquote>
+<p><strong>单道批处理系统</strong>(引入脱机输入输出技术)</p>
+<p>内存中始终保存一道作业，作业成批进行</p>
+<p>特点：</p>
+<ul>
+<li>自动性：一批作业自动执行不需要人工干预</li>
+<li>顺序性：各道作业依次执行</li>
+<li>单道性：仅有一道程序执行</li>
+</ul>
+<p>优点：</p>
+<p><strong>缓解</strong>了一定程度的<strong>人机速度矛盾</strong>，资源利用率有所提升</p>
+<p>缺点：</p>
+<ul>
+<li>高速CPU等待I/O设备的完成，<strong>资源利用率依然很低</strong></li>
+<li>内存中仅能有一道程序运行，只有该程序运行结束之后才能调入下一道程序</li>
+</ul>
+<p><strong>多道批处理系统</strong>(操作系统开始出现)</p>
+<blockquote>
+<p>多道批处理系统的产生标志着操作系统正式诞生。</p>
+</blockquote>
+<p>允许多个程序在CPU中交替运行，程序共享各种硬件和软件资源。</p>
+<p>特点：</p>
+<ul>
+<li>多道：计算机中同时存放多道相互独立的程序</li>
+<li>宏观上并行：多道程序都会开始运行，但都没有运行完毕</li>
+<li>微观上串行：多道程序轮流占有CPU，交替执行</li>
+</ul>
+<p>优点：</p>
+<ul>
+<li><strong>资源利用率高</strong></li>
+<li><strong>多道程序并发执行</strong>，共享计算机资源</li>
+<li>CPU和其他资源更能保持“忙碌”状态，系统吞吐量增大</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>设计复杂，要考虑各种资源调度问题</li>
+<li>响应时间过长，<strong>没有人机交互功能</strong></li>
+</ul>
+<hr>
+<ol>
+<li><strong>分时操作系统</strong></li>
+</ol>
+<p>计算机以<strong>时间片</strong>为单位<strong>轮流为各个用户/作业服务</strong>，各个用户可通过终端与计算机进行交互。<br>主要优点：</p>
+<ul>
+<li>用户请求可以被即时响应，解决了<strong>人机交互问题</strong>；</li>
+<li>允许多个终端用户同时使用一台计算机，并且用户对计算机的操作相互独立，互不干扰。</li>
+</ul>
+<p>主要缺点：</p>
+<ul>
+<li><strong>不能优先处理一些紧急任务</strong>；</li>
+<li>操作系统对各个用户/作业都是完全公平的，循环地为每个用户/作业服务一个时间片，不区分任务的紧急性。</li>
+</ul>
+<hr>
+<ol>
+<li><strong>实时操作系统</strong></li>
+</ol>
+<p>保证在规定时间内完成某项任务。</p>
+<p>主要优点：<strong>能够优先响应一些紧急任务</strong>，某些紧急任务不需时间片排队。</p>
+<p>硬实时系统：必须在绝对严格的规定时间内完成处理，如导弹控制，自动驾驶</p>
+<p>软实时系统：能接受偶尔违反时间规定，如12306订票</p>
+<p>主要特点是及时性和可靠性。</p>
+<hr>
+<p>其他几种操作系统</p>
+<ul>
+<li>网络操作系统：是伴随着计算机网络的发展而诞生的，能把网络中各个计算机有机地结合起来，实现数据传送等功能，实现网络中各种资源的共享（如文件共享）和各台计算机之间的通信。（如：Windows NT 就是一种典型的网络操作系统，网站服务器就可以使用）</li>
+<li>分布式操作系统：主要特点是分布性和并行性。系统中的任意两台计算机之间没有主从之分，相互交换信息，并行工作、协同完成任务。</li>
+<li>个人计算机操作系统：如Windows XP、MacOS，方便个人使用，广泛应用于文字处理、电子表格、游戏等。</li>
+</ul>
+<hr>
+
+        <h1 id="操作系统的运行机制">
+          <a href="#操作系统的运行机制" class="heading-link"><i class="fas fa-link"></i></a><a href="#操作系统的运行机制" class="headerlink" title="操作系统的运行机制"></a>操作系统的运行机制</h1>
+      <p>两种指令：</p>
+<p>指令就是处理器CPU能识别、执行的最基本命令，指二进制机器指令。</p>
+<ul>
+<li>特权指令：如内存清零指令</li>
+<li>非特权指令：如普通的运算指令</li>
+</ul>
+<p>两种程序：</p>
+<ul>
+<li>应用程序<ul>
+<li>用户自编的程序</li>
+<li>为了保证系统能安全运行，普通应用程序只能执行非特权指令，运行在用户态</li>
+</ul>
+</li>
+<li>内核程序<ul>
+<li>很多内核程序组成了操作系统内核，简称内核Kernel</li>
+<li>是系统的管理者，可以执行特权指令和非特权指令，运行在核心态</li>
+</ul>
+</li>
+</ul>
+<p>两种处理器状态：核心态(内核态)和用户态</p>
+<ul>
+<li>处于内核态时，说明此时正在运行的是内核程序，此时可以执行特权指令</li>
+<li>处于用户态时，说明此时正在运行的是应用程序，此时只能执行非特权指令</li>
+</ul>
+<p>状态切换：</p>
+<p>内核态→用户态：执行修改程序状态字寄存器PSW的特权指令</p>
+<p>内核态→用户态：由中断引起，硬件自动完成</p>
+<hr>
+<p><strong>内核</strong></p>
+<img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211101(2).png" style="zoom:80%;">
+
+<p>时钟管理：操作系统对用户提供标准时间，根据时钟对进程进行管理，实现进程切换。</p>
+<p>中断机制：初衷是为了提高多道程序运行环境中的CPU利用率，保护和恢复中断现场的信息，转移控制权到相关程序。</p>
+<p>原语：处于系统的最底层，是最接近硬件的部分，运行具有原子性，即只能一气呵成，运行时间短、调用频繁。</p>
+<img src="https://raw.githubusercontent.com/yuchen-zeta/images/main/blog/pic_bed/20211101(3).png" style="zoom:80%;">
+
+<p>大内核：</p>
+<ul>
+<li>将操作系统的主要功能模块都作为系统内核，运行在核心态</li>
+<li>优点：各个管理模块之间共享信息，能够有效利用相互之间的有效特效，有性能优势</li>
+<li>缺点：内核代码庞大，层次交互关系复杂，层次接口难以定义，难以维护</li>
+</ul>
+<p>微内核：</p>
+<ul>
+<li>只把最基本的功能保留在内核</li>
+<li>优点：内核功能少，有效的分离内核与服务、服务与服务，结构清晰，方便维护</li>
+<li>缺点：需要频繁地在核心态和用户态之间切换，性能低</li>
+</ul>
+<hr>
+
+        <h1 id="中断和异常">
+          <a href="#中断和异常" class="heading-link"><i class="fas fa-link"></i></a><a href="#中断和异常" class="headerlink" title="中断和异常"></a>中断和异常</h1>
+      <p>为了进行核心态和用户态的切换，引入了中断机制。</p>
+<p>中断是让操作系统内核夺回CPU使用权的唯一途径。</p>
+<p>内中断(异常)：</p>
+<ul>
+<li>trap、fault、abort</li>
+<li>与当前执行的指令有关，中断信号来源于CPU内部</li>
+<li>异常不能被屏蔽</li>
+</ul>
+<p>外中断(中断)：</p>
+<ul>
+<li>时钟中断、I/O中断请求</li>
+<li>与当前执行的指令无关，中断信号来源于CPU外部</li>
+</ul>
+<p>基本实现原理：</p>
+<ul>
+<li>检查中断信号<ul>
+<li>内中断：CPU在<strong>执行指令时</strong>会检查是否有异常发生</li>
+<li>外中断：在<strong>每个指令周期末尾</strong>，CPU都会检查是否有外中断信号需要处理</li>
+</ul>
+</li>
+<li>找中断处理程序<ul>
+<li>不同的中断信号，需要用不同的中断处理程序来处理。</li>
+<li>当CPU检测到中断信号后，会根据中断信号的类型去查询“中断向量表”，以此来找到相应的中断处理程序在内存中的存放位置。</li>
+</ul>
+</li>
+</ul>
+
+        <h1 id="系统调用">
+          <a href="#系统调用" class="heading-link"><i class="fas fa-link"></i></a><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h1>
+      <p>操作系统作为用户和计算机硬件之间的接口，需要向上提供一些简单易用的服务。主要包括命令接口和程序接口。其中，程序接口由一组系统调用组成。</p>
+<p>“系统调用”是操作系统提供给应用程序（程序员/编程人员）使用的接口，可以理解为一种可供应用程序调用的特殊函数，<strong>应用程序可以通过系统调用来请求获得操作系统内核的服务。</strong></p>
+<p>系统调用按功能可分为：</p>
+<ul>
+<li>设备管理：完成设备的请求/释放/启动等功能</li>
+<li>文件管理：完成文件的读/写/创建/删除等功能</li>
+<li>进程控制：完成进程的创建/撤销/阻塞/唤醒等功能</li>
+<li>进程通信：完成进程之间的消息传递/信号传递等功能</li>
+<li>内存管理：完成内存的分配/回收等功能</li>
+</ul>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://yuchen-zeta.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></span></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2021/10/31/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%AC%AC%E4%B8%89%E7%AB%A0-%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/"><span class="paginator-prev__text">计算机网络-第三章-数据链路层</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A6%82%E5%BF%B5%E3%80%81%E5%8A%9F%E8%83%BD%E5%92%8C%E7%9B%AE%E6%A0%87"><span class="toc-number">1.</span> <span class="toc-text">
+          操作系统的概念、功能和目标</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.</span> <span class="toc-text">
+          概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E5%92%8C%E7%9B%AE%E6%A0%87"><span class="toc-number">1.2.</span> <span class="toc-text">
+          功能和目标</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%89%B9%E5%BE%81"><span class="toc-number">2.</span> <span class="toc-text">
+          操作系统的特征</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E5%8F%91"><span class="toc-number">2.1.</span> <span class="toc-text">
+          并发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B1%E4%BA%AB"><span class="toc-number">2.2.</span> <span class="toc-text">
+          共享</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F"><span class="toc-number">2.3.</span> <span class="toc-text">
+          虚拟</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5"><span class="toc-number">2.4.</span> <span class="toc-text">
+          异步</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%91%E5%B1%95%E4%B8%8E%E5%88%86%E7%B1%BB"><span class="toc-number">3.</span> <span class="toc-text">
+          操作系统的发展与分类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6"><span class="toc-number">4.</span> <span class="toc-text">
+          操作系统的运行机制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8"><span class="toc-number">5.</span> <span class="toc-text">
+          中断和异常</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="toc-number">6.</span> <span class="toc-text">
+          系统调用</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/blog-logo.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">羽尘</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/yuchen-zeta/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2058149863&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Yuchen</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-space-shuttle"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>
